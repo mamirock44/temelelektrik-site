@@ -84,18 +84,18 @@ FILE: /referanslar/index.html
     .head h2{ margin:0; }
     .head p{ margin:0; color:var(--muted); font-weight:800; line-height:1.55; }
 
-    /* ✅ Kutucukları geniş: 3 kolon, kartlar iri */
+    /* ✅ Kartları biraz daha ferah + premium */
     .refs-grid{
       margin-top: 16px;
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
     @media (max-width: 980px){ .refs-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
     @media (max-width: 640px){ .refs-grid{ grid-template-columns: 1fr; } }
 
     .ref-card{
-      border-radius: 16px;
+      border-radius: 18px;
       border: 1px solid rgba(0,0,0,.08);
       background: #ffffff;
       overflow:hidden;
@@ -103,31 +103,39 @@ FILE: /referanslar/index.html
       transition: transform .12s ease, box-shadow .12s ease;
     }
     .ref-card:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(0,0,0,.10);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(0,0,0,.12);
     }
 
+    /* ✅ Görsel alanını büyüttüm */
     .ref-logo{
-      height: 160px;
+      height: 220px;
       display:flex;
       align-items:center;
       justify-content:center;
-      background: #f7f7f7;
+      background: linear-gradient(180deg, #fbfbfb, #f2f2f2);
       border-bottom: 1px solid rgba(0,0,0,.06);
-      padding: 14px;
+      padding: 18px;
     }
-    .ref-logo img{
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      filter: grayscale(1);
-      opacity: .80;
-      transition: filter .15s ease, opacity .15s ease;
-    }
-    .ref-card:hover .ref-logo img{ filter: grayscale(0); opacity: 1; }
 
-    .ref-meta{ padding: 12px 12px 14px; }
-    .ref-name{ font-weight: 900; color:#111; font-size: 16px; line-height: 1.25; }
+    /* ✅ Siyah-beyaz + hover renkli efektini KALDIRDIK (her zaman renkli) */
+    .ref-logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: none;
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    .ref-card:hover .ref-logo img{
+      filter: none;
+      opacity: 1;
+      transform: scale(1.05);
+      transition: transform .18s ease;
+    }
+
+    .ref-meta{ padding: 14px 14px 16px; }
+    .ref-name{ font-weight: 900; color:#111; font-size: 16px; line-height: 1.25; letter-spacing:.2px; }
     .ref-desc{ margin-top: 6px; color: var(--muted); font-weight: 800; font-size: 14px; line-height: 1.35; }
 
     .note{
@@ -179,14 +187,12 @@ FILE: /referanslar/index.html
       <div class="logo" aria-label="Temel Elektrik">TE</div>
       <h1>REFERANSLARIMIZ (İŞ ORTAKLARIMIZ)</h1>
     </div>
-
   </header>
 
   <main class="container">
     <section class="panel" aria-label="REFERANSLARIMIZ (İŞ ORTAKLARIMIZ)">
       <div class="head">
-
-
+        <!-- İstersen buraya kısa bir açıklama da ekleriz -->
       </div>
 
       <div class="refs-grid" role="list">
@@ -201,7 +207,7 @@ FILE: /referanslar/index.html
           <div class="ref-logo"><img src="https://imgur.com/a/IF4vPn7" alt="Referans Firma 2 Logosu" loading="lazy"></div>
           <div class="ref-meta">
             <div class="ref-name">Referans Firma 2</div>
-            <div class="ref-desc">Pano düzennhjfnleme & tesisat revizyon</div>
+            <div class="ref-desc">Pano düzennnleme & tesisat revizyon</div>
           </div>
         </div>
 
@@ -238,7 +244,6 @@ FILE: /referanslar/index.html
         </div>
       </div>
 
-      <div class="note"><strong>Not:</strong> İstersen bu sayfaya “iş görselleri” de ekleyip çok daha premium gösterebiliriz.</div>
 
       <a class="back" href="/">🏠 Ana Sayfaya Dön</a>
     </section>
@@ -250,8 +255,3 @@ FILE: /referanslar/index.html
 
 </body>
 </html>
-
-
-
-
-
