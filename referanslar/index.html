@@ -13,43 +13,73 @@ FILE: /referanslar/index.html
 
   <style>
     :root{
-      --brand:#ffcc00; --dark2:#232323; --bg:#f4f4f4; --card:#ffffff;
-      --muted:#6b6b6b; --shadow: 0 12px 28px rgba(0,0,0,.10); --radius:16px;
+      --brand:#ffcc00; --dark:#161616; --dark2:#232323; --bg:#f4f4f4;
+      --card:#ffffff; --muted:#6b6b6b; --wa:#25D366;
+      --shadow: 0 12px 28px rgba(0,0,0,.10); --radius:18px;
     }
     html{ scroll-behavior:smooth; }
     *{ box-sizing:border-box; }
     body{ margin:0; font-family: Arial, Helvetica, sans-serif; background: var(--bg); color:#222; }
     a{ color:inherit; }
 
+    /* ÜST PİLL MENÜ */
     .utility-bar{
-      background:#0f0f0f; color:#fff; padding:8px 14px;
+      position: sticky; top:0; z-index: 50;
+      background:#0f0f0f; color:#fff; padding:10px 14px;
       display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
       font-weight:900; font-size:14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
     .utility-bar .pill{
-      color:var(--brand); text-decoration:none; padding:6px 10px; border-radius:999px;
+      color:var(--brand); text-decoration:none; padding:7px 12px; border-radius:999px;
       background:rgba(255,255,255,.06); white-space:nowrap;
       border:1px solid rgba(255,255,255,.08); display:inline-flex; align-items:center; gap:8px;
+      transition: transform .12s ease, background .12s ease;
     }
-    .utility-bar .pill:hover{ background: rgba(255,255,255,.10); }
+    .utility-bar .pill:hover{ background: rgba(255,255,255,.12); transform: translateY(-1px); }
     .utility-bar .pill.active{ background: rgba(255,204,0,.18); border-color: rgba(255,204,0,.55); }
 
+    /* HERO */
     header{
-      background: radial-gradient(1200px 300px at 50% 0%, rgba(255,204,0,.35), transparent 60%),
-                  linear-gradient(180deg, var(--brand), #ffd84d);
-      padding: 26px 16px 18px;
-      position:relative; overflow:hidden; text-align:center;
+      background:
+        radial-gradient(1200px 360px at 50% 0%, rgba(255,204,0,.40), transparent 60%),
+        linear-gradient(180deg, #ffd84d, var(--brand));
+      padding: 30px 16px 18px;
+      position:relative; overflow:hidden;
+      border-bottom: 1px solid rgba(0,0,0,.08);
     }
     header:before{
-      content:""; position:absolute; inset:-40px;
+      content:""; position:absolute; inset:-60px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(0,0,0,.08), transparent 35%),
-        radial-gradient(circle at 80% 30%, rgba(0,0,0,.06), transparent 40%),
-        radial-gradient(circle at 50% 80%, rgba(0,0,0,.06), transparent 45%);
+        radial-gradient(circle at 15% 20%, rgba(0,0,0,.08), transparent 35%),
+        radial-gradient(circle at 85% 30%, rgba(0,0,0,.06), transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(0,0,0,.06), transparent 45%);
       pointer-events:none;
     }
-    .brand-row{ position:relative; display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap; }
-    header h1{ margin:0; letter-spacing:.2px; color:#111; text-shadow: 0 1px 0 rgba(255,255,255,.35); }
+    .hero{
+      position:relative;
+      max-width:1100px; margin:0 auto;
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:16px; flex-wrap:wrap;
+    }
+    .hero h1{ margin:0; color:#111; letter-spacing:.2px; font-size: 28px; }
+    .hero p{ margin:8px 0 0; color:#111; font-weight:900; max-width:720px; line-height:1.5; opacity:.9; }
+    .hero-badges{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .badge{
+      background: rgba(0,0,0,.85);
+      color: var(--brand);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(0,0,0,.12);
+      min-width: 140px;
+      text-align:center;
+    }
+    .badge span{ display:block; color:#fff; font-weight:900; font-size: 13px; opacity:.85; margin-top:3px; }
+
     .container{ padding:22px 16px; max-width:1100px; margin:auto; }
 
     .panel{
@@ -65,18 +95,54 @@ FILE: /referanslar/index.html
       content:"";
       position:absolute;
       inset:-60px;
-      background: radial-gradient(circle at 10% 20%, rgba(255,204,0,.22), transparent 55%),
-                  radial-gradient(circle at 90% 0%, rgba(0,0,0,.05), transparent 60%);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,204,0,.22), transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(0,0,0,.05), transparent 60%);
       pointer-events:none;
     }
     .panel > *{ position:relative; }
 
-    .head{
-      display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;
+    /* FİLTRE CHIPLER */
+    .filters{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
     }
-    .head h2{ margin:0; }
-    .head p{ margin:0; color:var(--muted); font-weight:800; line-height:1.55; }
+    .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+    .chip{
+      cursor:pointer;
+      user-select:none;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.8);
+      font-weight: 900;
+      color:#111;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.08); }
+    .chip.active{
+      background: rgba(255,204,0,.35);
+      border-color: rgba(0,0,0,.18);
+    }
+    .search{
+      display:flex; gap:10px; align-items:center;
+      width: min(420px, 100%);
+    }
+    .search input{
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.14);
+      outline:none;
+      font-weight: 800;
+      background:#fff;
+    }
 
+    /* GRID */
     .refs-grid{
       margin-top: 16px;
       display:grid;
@@ -92,11 +158,14 @@ FILE: /referanslar/index.html
       background: #ffffff;
       overflow:hidden;
       box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      transition: transform .12s ease, box-shadow .12s ease;
+      transition: transform .14s ease, box-shadow .14s ease;
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
     }
     .ref-card:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(0,0,0,.12);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(0,0,0,.14);
     }
 
     .ref-logo{
@@ -104,11 +173,11 @@ FILE: /referanslar/index.html
       display:flex;
       align-items:center;
       justify-content:center;
-      background: linear-gradient(180deg, #fbfbfb, #f2f2f2);
+      background: linear-gradient(180deg, #fbfbfb, #f1f1f1);
       border-bottom: 1px solid rgba(0,0,0,.06);
       padding: 18px;
+      cursor: zoom-in;
     }
-
     .ref-logo img{
       width: 100%;
       height: 100%;
@@ -119,15 +188,59 @@ FILE: /referanslar/index.html
       display:block;
     }
     .ref-card:hover .ref-logo img{
-      filter: none;
-      opacity: 1;
       transform: scale(1.05);
       transition: transform .18s ease;
     }
 
-    .ref-meta{ padding: 14px 14px 16px; }
+    .ref-meta{
+      padding: 14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      flex: 1;
+    }
     .ref-name{ font-weight: 900; color:#111; font-size: 16px; line-height: 1.25; letter-spacing:.2px; }
-    .ref-desc{ margin-top: 6px; color: var(--muted); font-weight: 800; font-size: 14px; line-height: 1.35; }
+    .ref-desc{ color: var(--muted); font-weight: 800; font-size: 14px; line-height: 1.35; }
+
+    .tags{ margin-top:auto; display:flex; gap:8px; flex-wrap:wrap; padding-top: 8px; }
+    .tag{
+      font-weight: 900;
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.08);
+      color:#111;
+      white-space:nowrap;
+    }
+
+    /* CTA */
+    .cta{
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(0,0,0,.92), rgba(0,0,0,.82));
+      color:#fff;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 18px 40px rgba(0,0,0,.16);
+      display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    }
+    .cta strong{ color: var(--brand); }
+    .cta-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.16); }
+    .btn.wa{ background: rgba(37,211,102,.18); border-color: rgba(37,211,102,.35); }
+    .btn.wa:hover{ background: rgba(37,211,102,.26); }
 
     .back{
       margin-top: 14px;
@@ -145,6 +258,62 @@ FILE: /referanslar/index.html
     }
 
     footer{ background:#0f0f0f; color:#aaa; text-align:center; padding:12px; margin-top: 28px; }
+
+    /* Reveal anim */
+    .reveal{ opacity:0; transform: translateY(10px); }
+    .reveal.show{ opacity:1; transform: translateY(0); transition: opacity .35s ease, transform .35s ease; }
+
+    /* Modal (Lightbox) */
+    .modal{
+      position:fixed; inset:0; z-index:9999;
+      background: rgba(0,0,0,.70);
+      display:none;
+      align-items:center; justify-content:center;
+      padding: 18px;
+    }
+    .modal.open{ display:flex; }
+    .modal-box{
+      width: min(980px, 100%);
+      background:#111;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+      position:relative;
+    }
+    .modal-top{
+      display:flex; justify-content:space-between; align-items:center;
+      padding: 12px 14px;
+      color:#fff;
+      background: rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      font-weight: 900;
+    }
+    .modal-close{
+      cursor:pointer;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-weight: 900;
+    }
+    .modal-img{
+      background:#0b0b0b;
+      padding: 14px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .modal-img img{
+      max-width: 100%;
+      max-height: 72vh;
+      width:auto;
+      height:auto;
+      object-fit: contain;
+      display:block;
+      background:#fff;
+      border-radius: 14px;
+      padding: 10px;
+    }
   </style>
 </head>
 
@@ -157,71 +326,138 @@ FILE: /referanslar/index.html
   </div>
 
   <header>
-    <div class="brand-row">
-      <h1>REFERANSLARIMIZ (İŞ ORTAKLARIMIZ)</h1>
+    <div class="hero">
+      <div>
+        <h1>Referanslarımız (İş Ortaklarımız)</h1>
+        <p>Birlikte çalıştığımız firmalardan bazıları. Logoya tıklayıp büyütebilirsin. Filtreyle hızlıca gruplayabilirsin.</p>
+      </div>
+
+      <div class="hero-badges" aria-label="Öne çıkan bilgiler">
+        <div class="badge">30+ Yıl<span>Tecrübe</span></div>
+        <div class="badge">7/24<span>Arıza Servis</span></div>
+        <div class="badge">Ankara<span>Sincan & Çevre</span></div>
+      </div>
     </div>
   </header>
 
   <main class="container">
     <section class="panel" aria-label="REFERANSLARIMIZ (İŞ ORTAKLARIMIZ)">
-      <div class="head"></div>
 
-      <!-- ✅ GRID BAŞLANGIÇ -->
-     <div class="refs-grid">
+      <div class="filters">
+        <div class="chips" role="tablist" aria-label="Filtreler">
+          <div class="chip active" data-filter="all" role="tab" aria-selected="true">Hepsi</div>
+          <div class="chip" data-filter="insaat" role="tab">İnşaat</div>
+          <div class="chip" data-filter="proje" role="tab">Proje/Ruhsat</div>
+          <div class="chip" data-filter="kablolama" role="tab">Kablolama</div>
+          <div class="chip" data-filter="aydinlatma" role="tab">Aydınlatma</div>
+        </div>
 
-  <div class="ref-card">
-    <div class="ref-logo">
-<img src="/assets/images/ciftciler.jpeg?v=2" alt="Çiftçiler İnşaat">
+        <div class="search">
+          <input id="searchInput" type="text" placeholder="Firma ara… (örn: Çiftçiler, MYM)" aria-label="Firma arama">
+        </div>
+      </div>
 
-    </div>
-    <div class="ref-meta">
-      <div class="ref-name">Çiftçiler İnşaat</div>
-      <div class="ref-desc">Pano düzdenleme & tesisat revizyon</div>
-    </div>
-  </div>
+      <!-- ✅ ÖNEMLİ: refs-grid wrapper -->
+      <div class="refs-grid" id="refsGrid" role="list">
 
-  <div class="ref-card">
-    <div class="ref-logo">
-      <img src="../assets/images/dogansah.jpeg" alt="Doğanşah İnşaat">
-    </div>
-    <div class="ref-meta">
-      <div class="ref-name">Doğanşah İnşaat</div>
-      <div class="ref-desc">Pano düzenleme & tesisat revizyon</div>
-    </div>
-  </div>
+        <div class="ref-card reveal" role="listitem" data-tags="insaat">
+          <div class="ref-logo" data-title="Çiftçiler İnşaat">
+            <img src="../assets/images/ciftciler.jpeg" alt="Çiftçiler İnşaat Logosu" loading="lazy">
+          </div>
+          <div class="ref-meta">
+            <div class="ref-name">Çiftçiler İnşaat</div>
+            <div class="ref-desc">Pano düzenleme & tesisat revizyon</div>
+            <div class="tags">
+              <span class="tag">İnşaat</span>
+              <span class="tag">Tesisat</span>
+            </div>
+          </div>
+        </div>
 
-  <div class="ref-card">
-    <div class="ref-logo">
-      <img src="../assets/images/mnarcin.jpeg" alt="M. Narçin İnşaat">
-    </div>
-    <div class="ref-meta">
-      <div class="ref-name">M. Narçin İnşaat</div>
-      <div class="ref-desc">Aydınlatma & LED uygulamaları</div>
-    </div>
-  </div>
+        <div class="ref-card reveal" role="listitem" data-tags="insaat">
+          <div class="ref-logo" data-title="Doğanşah İnşaat">
+            <img src="../assets/images/dogansah.jpeg" alt="Doğanşah İnşaat Logosu" loading="lazy">
+          </div>
+          <div class="ref-meta">
+            <div class="ref-name">Doğanşah İnşaat</div>
+            <div class="ref-desc">Pano düzenleme & tesisat revizyon</div>
+            <div class="tags">
+              <span class="tag">İnşaat</span>
+              <span class="tag">Revizyon</span>
+            </div>
+          </div>
+        </div>
 
-  <div class="ref-card">
-    <div class="ref-logo">
-      <img src="../assets/images/mym.jpeg" alt="MYM İnşaat Mimarlık">
-    </div>
-    <div class="ref-meta">
-      <div class="ref-name">MYM İnşaat Mimarlık</div>
-      <div class="ref-desc">İnternet / TV kablolama</div>
-    </div>
-  </div>
+        <!-- ✅ M. Narçin kartı: HTML kapanışları düzeltildi -->
+        <div class="ref-card reveal" role="listitem" data-tags="insaat aydinlatma">
+          <div class="ref-logo" data-title="M. Narçin İnşaat">
+            <img src="../assets/images/mnarcin.jpeg" alt="M. Narçin İnşaat Logosu" loading="lazy">
+          </div>
+          <div class="ref-meta">
+            <div class="ref-name">M. Narçin İnşaat</div>
+            <div class="ref-desc">Aydınlatma & LED uygulamaları</div>
+            <div class="tags">
+              <span class="tag">Aydınlatma</span>
+              <span class="tag">LED</span>
+            </div>
+          </div>
+        </div>
 
-  <div class="ref-card">
-    <div class="ref-logo">
-      <img src="../assets/images/osmanoglu.jpeg" alt="Osmanoğlu Grup">
-    </div>
-    <div class="ref-meta">
-      <div class="ref-name">Osmanoğlu Grup</div>
-      <div class="ref-desc">Elektrik proje & ruhsat süreçleri</div>
-    </div>
-  </div>
+        <div class="ref-card reveal" role="listitem" data-tags="kablolama">
+          <div class="ref-logo" data-title="MYM İnşaat Mimarlık">
+            <img src="../assets/images/mym.jpeg" alt="MYM Logosu" loading="lazy">
+          </div>
+          <div class="ref-meta">
+            <div class="ref-name">MYM İnşaat Mimarlık</div>
+            <div class="ref-desc">İnternet / TV kablolama</div>
+            <div class="tags">
+              <span class="tag">Kablolama</span>
+              <span class="tag">İnternet/TV</span>
+            </div>
+          </div>
+        </div>
 
-</div>
-      <!-- ✅ GRID BİTİŞ -->
+        <div class="ref-card reveal" role="listitem" data-tags="proje">
+          <div class="ref-logo" data-title="Osmanoğlu Grup">
+            <img src="../assets/images/osmanoglu.jpeg" alt="Osmanoğlu Grup Logosu" loading="lazy">
+          </div>
+          <div class="ref-meta">
+            <div class="ref-name">Osmanoğlu Grup</div>
+            <div class="ref-desc">Elektrik proje & ruhsat süreçleri</div>
+            <div class="tags">
+              <span class="tag">Proje</span>
+              <span class="tag">Ruhsat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" role="listitem" data-tags="insaat">
+          <div class="ref-logo" data-title="Referans Firma 6">
+            <img src="https://via.placeholder.com/520x220?text=LOGO+6" alt="Referans Firma 6 Logosu" loading="lazy">
+          </div>
+          <div class="ref-meta">
+            <div class="ref-name">Referans Firma 6</div>
+            <div class="ref-desc">Periyodik bakım anlaşması</div>
+            <div class="tags">
+              <span class="tag">Bakım</span>
+              <span class="tag">Anlaşma</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /refs-grid -->
+
+      <div class="cta" aria-label="Hemen iletişim">
+        <div>
+          <div style="font-weight:900; font-size:16px;">İşiniz mi var? <strong>Hızlı teklif</strong> ve <strong>7/24 arıza</strong> için yazın.</div>
+          <div style="opacity:.9; margin-top:6px; font-weight:800;">WhatsApp’tan fotoğraf at → arızayı görelim → hızlı dönüş yapalım.</div>
+        </div>
+        <div class="cta-actions">
+          <!-- Numara sende neyse onu yaz -->
+          <a class="btn wa" href="https://wa.me/905071532862" target="_blank" rel="noopener">💬 WhatsApp</a>
+          <a class="btn" href="tel:+905071532862">📞 Hemen Ara</a>
+        </div>
+      </div>
 
       <a class="back" href="/">🏠 Ana Sayfaya Dön</a>
     </section>
@@ -231,9 +467,89 @@ FILE: /referanslar/index.html
     <p>© 2025 Temel Elektrik | temelelektrik.net</p>
   </footer>
 
+  <!-- Modal -->
+  <div class="modal" id="imgModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Görsel Önizleme">
+      <div class="modal-top">
+        <div id="modalTitle">Logo</div>
+        <button class="modal-close" id="modalClose" type="button">Kapat ✕</button>
+      </div>
+      <div class="modal-img">
+        <img id="modalImg" src="" alt="Büyük logo">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Reveal on load
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".reveal").forEach((el, i) => {
+        setTimeout(() => el.classList.add("show"), 60 + i * 50);
+      });
+    });
+
+    // Filter
+    const chips = document.querySelectorAll(".chip");
+    const cards = document.querySelectorAll(".ref-card");
+    const searchInput = document.getElementById("searchInput");
+
+    let activeFilter = "all";
+
+    function applyFilters(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+
+      cards.forEach(card => {
+        const tags = (card.getAttribute("data-tags") || "").toLowerCase();
+        const name = (card.querySelector(".ref-name")?.textContent || "").toLowerCase();
+        const desc = (card.querySelector(".ref-desc")?.textContent || "").toLowerCase();
+
+        const matchesFilter = (activeFilter === "all") || tags.includes(activeFilter);
+        const matchesSearch = !q || name.includes(q) || desc.includes(q);
+
+        card.style.display = (matchesFilter && matchesSearch) ? "" : "none";
+      });
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilter = chip.getAttribute("data-filter");
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+
+    // Lightbox modal
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalClose = document.getElementById("modalClose");
+
+    document.querySelectorAll(".ref-logo").forEach(box => {
+      box.addEventListener("click", () => {
+        const img = box.querySelector("img");
+        const title = box.getAttribute("data-title") || "Logo";
+        if(!img || !img.src) return;
+
+        modalImg.src = img.src;
+        modalTitle.textContent = title;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closeModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modalImg.src = "";
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+    document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
+  </script>
+
 </body>
 </html>
-
-
-
-
