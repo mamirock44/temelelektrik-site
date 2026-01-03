@@ -29,6 +29,7 @@ FILE: /index.html
       --muted:#6b6b6b;
       --wa:#25D366;
       --shadow: 0 12px 28px rgba(0,0,0,.10);
+      --shadow2: 0 18px 40px rgba(0,0,0,.12);
       --radius: 16px;
       --ring: 0 0 0 4px rgba(255,204,0,.22);
     }
@@ -44,74 +45,12 @@ FILE: /index.html
     a{ color:inherit; }
 
     /* =========================
-       INTRO VIDEO (MOBİL UYUMLU)
-    ========================= */
-    #intro{
-      position: fixed;
-      inset: 0;
-      background:#000;
-      z-index: 100000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      /* 🔥 MOBİL TARAYICI YÜKSEKLİK FIX */
-      height: 100vh;
-      height: 100dvh;
-    }
-
-    #intro video{
-      width: 100%;
-      height: 100%;
-      display:block;
-
-      /* ❌ yanlardan kesme
-         ✅ videoyu komple göster */
-      object-fit: contain;
-      object-position: center;
-
-      background:#000;
-    }
-
-    /* güvenlik için */
-    #intro, #intro *{
-      max-width:100%;
-      max-height:100%;
-    }
-
-    #intro .skip{
-      position:absolute;
-      right: 16px;
-      bottom: 16px;
-      z-index: 100001;
-      background: rgba(0,0,0,.55);
-      color:#fff;
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 900;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-    }
-    #intro .skip:hover{ filter: brightness(1.05); }
-
-    .hidden{ display:none !important; }
-
-    /* Intro varken sabitlemeleri gizle (üst üste binmesin) */
-    body.intro-on .whatsapp-button,
-    body.intro-on .mobile-bar{
-      display:none !important;
-    }
-    body.intro-on{ overflow:hidden; }
-
-    /* =========================
        TOP UTILITY BAR (GLOBAL STANDART)
-       - Hakkımızda + Referanslar ile aynı ölçü
     ========================= */
     .utility-bar{
       background: #0f0f0f;
       color:#fff;
-      padding: 10px 14px;        /* ✅ eşitlendi */
+      padding: 10px 14px;
       display:flex;
       justify-content:center;
       gap:10px;
@@ -119,13 +58,18 @@ FILE: /index.html
       font-weight:900;
       font-size: 14px;
       line-height: 1;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
     }
     .utility-bar .pill{
       color: var(--brand);
       text-decoration:none;
 
-      padding: 10px 14px;        /* ✅ eşitlendi */
-      min-height: 40px;          /* ✅ eşitlendi */
+      padding: 10px 14px;
+      min-height: 40px;
       border-radius: 999px;
 
       background: rgba(255,255,255,.06);
@@ -137,7 +81,7 @@ FILE: /index.html
       justify-content:center;
       gap:8px;
 
-      line-height:1;             /* ✅ emoji kaymasını azaltır */
+      line-height:1;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
     .utility-bar .pill:hover{
@@ -180,17 +124,6 @@ FILE: /index.html
       align-items:center;
       gap:12px;
       flex-wrap:wrap;
-    }
-    .logo{
-      width:44px;height:44px;
-      border-radius: 12px;
-      background: rgba(0,0,0,.9);
-      display:grid;
-      place-items:center;
-      color: var(--brand);
-      box-shadow: 0 10px 22px rgba(0,0,0,.12);
-      font-weight: 900;
-      letter-spacing: .5px;
     }
     header h1{
       margin:0;
@@ -299,6 +232,106 @@ FILE: /index.html
       max-width: 1100px;
       margin: auto;
     }
+
+    /* =========================
+       ✅ ANASAYFA VİDEO BLOĞU (Hizmetler üstü)
+       - Büyük görünüm
+       - AutoPlay / muted / loop (gif gibi)
+       - Mobil uyum + güzel kart
+    ========================= */
+    .hero-video{
+      margin-top: 14px;
+      background: #0b0b0b;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: var(--shadow2);
+      position: relative;
+    }
+    .hero-video::before{
+      content:"";
+      position:absolute;
+      inset:-60px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,204,0,.18), transparent 45%),
+        radial-gradient(circle at 80% 10%, rgba(255,204,0,.10), transparent 50%),
+        radial-gradient(circle at 50% 120%, rgba(0,0,0,.35), transparent 60%);
+      pointer-events:none;
+    }
+
+    /* oran koruma: 16:9 */
+    .video-wrap{
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background:#000;
+    }
+    @media (max-width: 640px){
+      .video-wrap{ aspect-ratio: 4 / 3; } /* mobilde daha “büyük” hissi */
+    }
+
+    .video-wrap video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;          /* ✅ altaselektrik gibi dolu/doygun */
+      object-position: center;
+      display:block;
+      filter: contrast(1.02) saturate(1.05);
+      transform: scale(1.01);
+    }
+
+    .video-caption{
+      position: relative;
+      padding: 14px 14px 16px;
+      background: linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.55));
+      margin-top: -64px;
+      z-index: 2;
+    }
+    .video-caption .title{
+      margin:0;
+      color:#fff;
+      font-weight: 900;
+      letter-spacing: .2px;
+      text-shadow: 0 10px 24px rgba(0,0,0,.35);
+      font-size: 18px;
+    }
+    .video-caption .sub{
+      margin:6px 0 0;
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
+      line-height: 1.45;
+      max-width: 900px;
+    }
+
+    .video-actions{
+      margin-top: 10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .vbtn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      backdrop-filter: blur(8px);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .vbtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.14); }
+    .vbtn.primary{
+      background: rgba(255,204,0,.90);
+      color:#111;
+      border-color: rgba(255,204,0,.40);
+    }
+
     .section-title{
       display:flex;
       justify-content:space-between;
@@ -306,6 +339,7 @@ FILE: /index.html
       gap: 12px;
       flex-wrap:wrap;
       margin-bottom: 8px;
+      margin-top: 18px;
     }
     .section-title h2{ margin:0; }
     .section-sub{
@@ -363,21 +397,6 @@ FILE: /index.html
     .card .body{ padding: 14px 14px 16px; }
     .card h3{ margin: 6px 0 6px; }
     .card p{ margin: 0; color:#444; font-weight: 700; line-height: 1.55; }
-
-    .listbox{
-      margin-top: 12px;
-      padding: 14px;
-      background: #f7f7f7;
-      border-left: 6px solid var(--brand);
-      border-radius: 14px;
-    }
-    .listbox ul{ margin:0; padding-left: 18px; }
-    .listbox li{
-      margin: 8px 0;
-      font-size: 16px;
-      font-weight: 900;
-      line-height: 1.35;
-    }
 
     .reviews{ margin-top: 22px; }
     .review-grid{
@@ -625,358 +644,319 @@ FILE: /index.html
   </script>
 </head>
 
-<body class="intro-on">
+<body>
 
-  <!-- INTRO VIDEO (GİRİŞTE AÇILIR) -->
-  <div id="intro" aria-label="Temel Elektrik giriş videosu">
-    <video id="introVideo" autoplay muted playsinline preload="auto">
-      <source src="/assets/videos/sitegirisi.mp4" type="video/mp4">
-      Tarayıcınız video etiketini desteklemiyor.
-    </video>
-    <button class="skip" id="skipIntro" type="button" aria-label="Videoyu geç">Geç</button>
+  <!-- ✅ Üst bar -->
+  <div class="utility-bar">
+    <a class="pill active" href="/">🏠 Ana Sayfa</a>
+    <a class="pill" href="/hakkimizda/">ℹ️ Hakkımızda</a>
+    <a class="pill" href="/referanslar/">🏢 Referanslarımız</a>
   </div>
 
-  <!-- ASIL SITE -->
-  <div id="site" class="hidden">
-
-    <!-- ✅ Üst bar (mobilde de görünür) -->
-    <div class="utility-bar">
-      <a class="pill active" href="/">🏠 Ana Sayfa</a>
-      <a class="pill" href="/hakkimizda/">ℹ️ Hakkımızda</a>
-      <a class="pill" href="/referanslar/">🏢 Referanslarımız</a>
+  <header>
+    <div class="brand-row">
+      <h1>Temel Elektrik</h1>
+      <div class="badge-30" title="30+ Yıl Tecrübe"><span>30+</span> Yıl Tecrübe</div>
     </div>
 
-    <header>
-      <div class="brand-row">
-        <h1>Temel Elektrik</h1>
-        <div class="badge-30" title="30+ Yıl Tecrübe"><span>30+</span> Yıl Tecrübe</div>
-      </div>
+    <p class="hero-sub">Ankara / Sincan başta olmak üzere profesyonel elektrik hizmetleri</p>
 
-      <p class="hero-sub">Ankara / Sincan başta olmak üzere profesyonel elektrik hizmetleri</p>
-
-      <div class="hero-points" aria-label="Öne çıkanlar">
-        <div class="chip">⚡ Hızlı Müdahale</div>
-        <div class="chip">🛡️ Güvenli İşçilik</div>
-        <div class="chip">📍 Sincan • Etimesgut • Yenikent • Temelli</div>
-        <div class="chip">🧾 Proje / Ruhsat Desteği</div>
-      </div>
-
-      <div class="header-cta">
-        <a href="tel:05071532862">📞 Ara: 0507 153 28 62</a>
-        <a href="tel:05413586606">📞 Ara: 0541 358 66 06</a>
-        <a class="secondary" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">
-          <svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true">
-            <path fill="currentColor" d="M19.11 17.46c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.6.07-.27-.14-1.16-.43-2.2-1.37-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.44-.46-.61-.47l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.3 0 1.36.99 2.67 1.13 2.85.14.18 1.95 2.98 4.72 4.18.66.29 1.18.46 1.59.59.67.21 1.28.18 1.76.11.54-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"/>
-            <path fill="currentColor" d="M26.67 5.33C23.88 2.54 20.17 1 16.22 1 8.07 1 1.44 7.63 1.44 15.78c0 2.61.68 5.16 1.98 7.41L1.33 31l7.95-2.06c2.14 1.17 4.56 1.79 7.02 1.79h.01c8.15 0 14.78-6.63 14.78-14.78 0-3.95-1.54-7.66-4.32-10.62zm-10.37 22.9h-.01c-2.21 0-4.38-.59-6.28-1.7l-.45-.27-4.72 1.22 1.26-4.6-.29-.47a12.39 12.39 0 0 1-1.9-6.62C3.91 9.17 9.17 3.91 16.3 3.91c3.46 0 6.71 1.35 9.15 3.8a12.86 12.86 0 0 1 3.79 9.15c0 7.13-5.26 12.37-12.94 12.37z"/>
-          </svg>
-          WhatsApp
-        </a>
-      </div>
-    </header>
-
-    <div class="top-callout">
-      7/24 Acil Elektrikçi | Sincan • Etimesgut • Yenikent • Temelli —
-      <a href="tel:05071532862">0507 153 28 62</a>
-      &nbsp;|&nbsp;
-      <a href="tel:05413586606">0541 358 66 06</a>
+    <div class="hero-points" aria-label="Öne çıkanlar">
+      <div class="chip">⚡ Hızlı Müdahale</div>
+      <div class="chip">🛡️ Güvenli İşçilik</div>
+      <div class="chip">📍 Sincan • Etimesgut • Yenikent • Temelli</div>
+      <div class="chip">🧾 Proje / Ruhsat Desteği</div>
     </div>
 
-    <main class="container">
+    <div class="header-cta">
+      <a href="tel:05071532862">📞 Ara: 0507 153 28 62</a>
+      <a href="tel:05413586606">📞 Ara: 0541 358 66 06</a>
+      <a class="secondary" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">
+        <svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true">
+          <path fill="currentColor" d="M19.11 17.46c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.6.07-.27-.14-1.16-.43-2.2-1.37-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.44-.46-.61-.47l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.3 0 1.36.99 2.67 1.13 2.85.14.18 1.95 2.98 4.72 4.18.66.29 1.18.46 1.59.59.67.21 1.28.18 1.76.11.54-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"/>
+          <path fill="currentColor" d="M26.67 5.33C23.88 2.54 20.17 1 16.22 1 8.07 1 1.44 7.63 1.44 15.78c0 2.61.68 5.16 1.98 7.41L1.33 31l7.95-2.06c2.14 1.17 4.56 1.79 7.02 1.79h.01c8.15 0 14.78-6.63 14.78-14.78 0-3.95-1.54-7.66-4.32-10.62zm-10.37 22.9h-.01c-2.21 0-4.38-.59-6.28-1.7l-.45-.27-4.72 1.22 1.26-4.6-.29-.47a12.39 12.39 0 0 1-1.9-6.62C3.91 9.17 9.17 3.91 16.3 3.91c3.46 0 6.71 1.35 9.15 3.8a12.86 12.86 0 0 1 3.79 9.15c0 7.13-5.26 12.37-12.94 12.37z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+  </header>
 
-      <!-- HİZMETLER -->
-      <section>
-        <div class="section-title">
-          <h2>Hizmetlerimiz</h2>
+  <div class="top-callout">
+    7/24 Acil Elektrikçi | Sincan • Etimesgut • Yenikent • Temelli —
+    <a href="tel:05071532862">0507 153 28 62</a>
+    &nbsp;|&nbsp;
+    <a href="tel:05413586606">0541 358 66 06</a>
+  </div>
+
+  <main class="container">
+
+    <!-- ✅ VİDEO (Hizmetlerimiz üstü) -->
+    <section class="hero-video" aria-label="Temel Elektrik tanıtım videosu">
+      <div class="video-wrap">
+        <video autoplay muted loop playsinline preload="auto" poster="/assets/images/video-poster.jpg">
+          <source src="/assets/videos/sitegirisi.mp4" type="video/mp4">
+          Tarayıcınız video etiketini desteklemiyor.
+        </video>
+      </div>
+
+      <div class="video-caption">
+        <p class="title">Ankara’da Hızlı & Güvenli Elektrik Hizmeti</p>
+        <p class="sub">Arıza, pano, tesisat ve taahhüt işlerinde 30+ yıl tecrübe. Hemen arayın, hızlı yönlendirelim.</p>
+
+        <div class="video-actions">
+          <a class="vbtn primary" href="tel:05071532862">📞 Hemen Ara</a>
+          <a class="vbtn" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">💬 WhatsApp</a>
+          <a class="vbtn" href="/referanslar/">🏢 Referanslar</a>
         </div>
-
-        <p class="section-sub">
-          Ankara genelinde özellikle <strong>Sincan, Etimesgut, Yenikent ve Temelli</strong> bölgelerinde hızlı, güvenilir ve profesyonel elektrik hizmetleri sunuyoruz.
-        </p>
-
-        <div class="trust-strip" aria-label="Güven rozetleri">
-          <div class="trust">✅ Garantili İşçilik<small>İşin arkasındayız</small></div>
-          <div class="trust">⚡ Hızlı Servis<small>İşinizi özenle yaparız</small></div>
-          <div class="trust">🧰 Profesyonel Ekipman<small>Doğru tespit, doğru çözüm</small></div>
-          <div class="trust">📄 Proje / Ruhsat<small>Gerekli yasal süreçlerde destek</small></div>
-        </div>
-
-        <div class="grid" style="margin-top:18px;">
-          <article class="card">
-            <img class="img" src="https://www.enyakinelektrikci.com/wp-content/uploads/2021/09/elektrik-ariza-tespit.jpg" alt="Elektrik Arıza Tespit - Sincan elektrikçi">
-            <div class="body">
-              <h3>Elektrik Arıza & Onarım</h3>
-              <p>Sigorta atması, kaçak, priz/anahtar arızaları ve acil müdahale gerektiren tüm durumlar.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.veraelektromekanik.com/Uploads/Contents/126143610786.jpg" alt="AG ve OG (YG) Elektrik Altyapı ve Trafo Sistemleri">
-            <div class="body">
-              <h3>AG ve OG (YG) Elektrik Altyapı ve Trafo Sistemleri</h3>
-              <p>AG (Alçak Gerilim) ve OG/YG (Orta ve Yüksek Gerilim) elektrik altyapı ve trafo sistemlerinde uzman kadrolarımızla çözümler sunmaktayız. Elektriğin, trafolardan son kullanıcıya kadar sağlıklı, güvenli ve kesintisiz bir şekilde ulaşmasını sağlayan projeler geliştiriz.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.kgg.com.tr/pic/service/9.jpg" alt="Kartlı Geçişler ve Turnike Sistemleri">
-            <div class="body">
-              <h3>Kartlı Geçişler ve Turnike Sistemleri</h3>
-              <p>Yemekhane aboneliklerinde, bina girişlerinde ve benzeri yerlerde kartlı doğrulamaya ve turnikeye ihtiyaç duyulan her noktada yardımcınız olmaktan memnuniyet duyaruz.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.bertelekom.com/images/cozumlerimiz/elektrik_taahhut_proje/elektrik_taahhut_05.jpg" alt="Elektrik Taahüt Projeleri">
-            <div class="body">
-              <h3>Elektrik Taahüt Projeleri</h3>
-              <p>Temel Elektrik grubu olarak sıfırdan teslim aldığımız binalarınızda ve inşaatlarınızda anahtar teslim şeklinde de hizmet vermekteyiz. Teslim aldığımız projelerde eksiksiz, hatasız ve kusursuz teslim yapmak prensibimizdir.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://barisiletisim.com.tr/images/blog/goruntulu-diafon-nedir.jpg" alt="Görüntülü Diyafon Servisi">
-            <div class="body">
-              <h3>Görüntülü Diyafon Servisi</h3>
-              <p>Uzman ekibimiz görüntülü ve sesli iletim sağlayan diyafon/diafon hizmeti vermektedir.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.easguvenlik.com.tr/upload/2023/03/2-guvenlik-kamera-sistemleri-nasil-calisir.webp" alt="Güvenlik Kamerası Sistemleri">
-            <div class="body">
-              <h3>Güvenlik Kamerası Sistemleri</h3>
-              <p>Profesyonel şekilde montajlanan ve kesintisiz kayıt yapan güvenlik kamerası sistemlerimizi evinize ve iş yerinize taktırarak güvenliğinizi üst çıtaya çıkartabilirsiniz.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.hirdavatfirsati.com//images/prod/6839.jpg" alt="Çipli Kapı Kilidi Sistemleri">
-            <div class="body">
-              <h3>Çipli Kapı Kilidi Sistemleri</h3>
-              <p>Binanızın ve iş yerinizin güvenliği için çipli kapı kilidi montajı hizmeti ve tamiri yapmaktayız.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://image.hurimg.com/i/hurriyet/90/750x422/5d2d8ca07152d802eccaabd3.jpg" alt="Fiber Altyapı Sistemi">
-            <div class="body">
-              <h3>Fiber Altyapı Sistemi</h3>
-              <p>Yoldan binaya, binadan evinize kadar fiber altyapıyı taşıyabiliriz. Temel Elektrik grubu olarak alanında uzman kadromuz ile internet altyapısı çözümleri sunmaktayız.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://kilicelektrik.com.tr/wp-content/uploads/2023/10/Cevre-Aydinlatma-Sistemleri.jpg" alt="Çevre Aydınlatma Sistemleri">
-            <div class="body">
-              <h3>Çevre Aydınlatma Sistemleri</h3>
-              <p>Site aydınlatma, çevre aydınlatma ve dizayn işlerinde Temel Elektrik grubu olarak hizmet vermekteyiz.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.asisttech.com.tr/blog/asisttech-blog-elektrik-panosu-periyodik-kontrol-ve-muayenesi.jpg" alt="Elektrik Pano Sistemleri">
-            <div class="body">
-              <h3>Elektrik Pano Sistemleri</h3>
-              <p>Bina panolarında ve teknik detay gerektiren işlemlerde Temel Elektrik olarak sizlere yardımcı olmaktan mutluluk duyaruz.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.dijitalmustafa.com/wp-content/uploads/2025/08/beylikduzu-elektrik-tamircisi.webp" alt="Elektrik Teknik Servisi - Etimesgut elektrikçi">
-            <div class="body">
-              <h3>Elektrik Teknik Servisi</h3>
-              <p>Ev ve iş yerleri için güvenli, düzenli, yönetmeliklere uygun çözümler.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img class="img" src="https://www.elektrikciankara.com/images/upload/_1710264640.jpg" alt="Pano ve Tesisat - Ankara elektrikçi">
-            <div class="body">
-              <h3>Eviniz İçin Elektrik Tesisat İşlemleri</h3>
-              <p>Pano düzenleme, kaçak akım rölesi, sigorta/priz hattı düzeni, lamba düğmeleri konum ayarlama ve tesisat revizyon işleri.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- YORUMLAR -->
-      <section class="reviews">
-        <div class="section-title">
-          <h2>Müşteri Geri Bildirimleri</h2>
-          <div style="font-weight:900;color:#444;">Dürüst ve şeffaf hizmet</div>
-        </div>
-
-        <div class="review-grid" style="margin-top:14px;">
-          <div class="review">
-            <div class="stars" aria-label="5 yıldız">★★★★★</div>
-            <p>“Acil arızamız vardı harbiden hızlı geldiler. Sorunu kısa sürede tespit edip temiz işçilikle çözdüler. Kürşat abimin ve ekibinin ellerine sağlık.”</p>
-            <div class="who">Miraç Erbakan <span>• Sincan</span></div>
-          </div>
-
-          <div class="review">
-            <div class="stars" aria-label="5 yıldız">★★★★★</div>
-            <p>“Elektrikli arabam için pano düzenleme ve kaçak akım rölesi montajı yaptırdım. Sürecin her aşamasında bilgilendirdiler, güven verdiler.”</p>
-            <div class="who">Akif Sağlam <span>• Yenikent</span></div>
-          </div>
-
-          <div class="review">
-            <div class="stars" aria-label="5 yıldız">★★★★★</div>
-            <p>“Avize montajı ve priz hattı yenileme işi için çağırdım. Fiyatta yardımcı oldular, işçilikten memnun kaldım. Tavsiye ederim.”</p>
-            <div class="who">Ozan Buldu <span>• Etimesgut</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SSS -->
-      <section class="faq">
-        <div class="section-title">
-          <h2>Sık Sorulan Sorular</h2>
-          <div style="font-weight:900;color:#444;">Kısa, net cevaplar</div>
-        </div>
-
-        <details>
-          <summary>7/24 hizmet veriyor musunuz?</summary>
-          <p>Evet. Acil elektrik arızalarında günün her saatinde ulaşabilirsiniz. Yoğunluğa göre en hızlı şekilde yönlendirme yapılır.</p>
-        </details>
-
-        <details>
-          <summary>Hangi bölgelerde hizmet veriyorsunuz?</summary>
-          <p>Sincan, Etimesgut, Yenikent, Temelli, Yapracık TOKİ, Ortapınar TOKİ ve Ankara genelinde hizmet veriyoruz.</p>
-        </details>
-
-        <details>
-          <summary>Kaçak akım rölesi / pano düzenleme yapıyor musunuz?</summary>
-          <p>Pano düzenleme, kaçak akım rölesi montajı, sigorta değişimi ve tesisat kontrolü yapıyoruz.</p>
-        </details>
-      </section>
-
-      <!-- Google Maps -->
-      <section class="maps">
-        <h2>Google Maps Konum</h2>
-        <p>Konumumuzu aşağıdaki haritadan görüntüleyebilirsiniz.</p>
-
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.0266269204913!2d32.516730599999995!3d40.007852799999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d32fe8ba4b7943%3A0xb536d99dd2857f16!2sTEMEL%20ELEKTR%C4%B0K!5e0!3m2!1str!2str!4v1766405344691!5m2!1str!2str"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen>
-        </iframe>
-      </section>
-
-    </main>
-
-    <!-- MAHALLELER -->
-    <section class="neighborhoods">
-      <div class="neighborhoods-card">
-        <h2>Hizmet Bölgeleri (Sincan Mahalleleri)</h2>
-
-        <details>
-          <summary>Mahalle listesini göster</summary>
-          <div class="neighborhoods-grid">
-            <div class="nb-item">29 EKİM MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">ADALET MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">AHİ EVRAN MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">AKÇAÖREN MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">AKŞEMSETTİN MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">ATATÜRK MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">FATİH MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">TÖREKENT MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">TEMELLİ ELEKTRİKÇİ</div>
-            <div class="nb-item">YENİKENT ELEKTRİKÇİ</div>
-            <div class="nb-item">YAPRACIK ELEKTRİKÇİ</div>
-            <div class="nb-item">TURKUAZ TOKİ ELEKTRİKÇİ</div>
-            <div class="nb-item">ORTAPINAR TOKİ ELEKTRİKÇİ</div>
-            <div class="nb-item">YAPRACIK TOKİ ELEKTRİKÇİ</div>
-            <div class="nb-item">CİMŞİT MAHALLESİ ELEKTRİKÇİ</div>
-            <div class="nb-item">PEÇENEK TOKİ ELEKTRİKÇİ</div>
-            <div class="nb-item">SARAYCIK TOKİ ELEKTRİKÇİ</div>
-          </div>
-        </details>
       </div>
     </section>
 
-    <!-- İLETİŞİM -->
-    <section class="contact">
-      <h2>İletişim</h2>
-      <p>7 gün 24 saat hizmetinizdeyiz.</p>
-
-      <div class="contact-phones" aria-label="Telefon numaraları">
-        <a class="contact-phone" href="tel:05071532862">📞 0507 153 28 62</a>
-        <a class="contact-phone" href="tel:05413586606">📞 0541 358 66 06</a>
+    <!-- HİZMETLER -->
+    <section>
+      <div class="section-title">
+        <h2>Hizmetlerimiz</h2>
       </div>
 
-      <div class="contact-quick">
-        <a class="btn btn-call" href="tel:05071532862">📞 Hemen Ara (0507 153 28 62)</a>
-        <a class="btn btn-call" href="tel:05413586606">📞 Hemen Ara (0541 358 66 06)</a>
-        <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">💬 WhatsApp</a>
+      <p class="section-sub">
+        Ankara genelinde özellikle <strong>Sincan, Etimesgut, Yenikent ve Temelli</strong> bölgelerinde hızlı, güvenilir ve profesyonel elektrik hizmetleri sunuyoruz.
+      </p>
+
+      <div class="trust-strip" aria-label="Güven rozetleri">
+        <div class="trust">✅ Garantili İşçilik<small>İşin arkasındayız</small></div>
+        <div class="trust">⚡ Hızlı Servis<small>İşinizi özenle yaparız</small></div>
+        <div class="trust">🧰 Profesyonel Ekipman<small>Doğru tespit, doğru çözüm</small></div>
+        <div class="trust">📄 Proje / Ruhsat<small>Gerekli yasal süreçlerde destek</small></div>
       </div>
 
-      <p style="margin-top:14px;font-weight:800;">Sincan / Ankara</p>
+      <div class="grid" style="margin-top:18px;">
+        <article class="card">
+          <img class="img" src="https://www.enyakinelektrikci.com/wp-content/uploads/2021/09/elektrik-ariza-tespit.jpg" alt="Elektrik Arıza Tespit - Sincan elektrikçi">
+          <div class="body">
+            <h3>Elektrik Arıza & Onarım</h3>
+            <p>Sigorta atması, kaçak, priz/anahtar arızaları ve acil müdahale gerektiren tüm durumlar.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.veraelektromekanik.com/Uploads/Contents/126143610786.jpg" alt="AG ve OG (YG) Elektrik Altyapı ve Trafo Sistemleri">
+          <div class="body">
+            <h3>AG ve OG (YG) Elektrik Altyapı ve Trafo Sistemleri</h3>
+            <p>AG (Alçak Gerilim) ve OG/YG (Orta ve Yüksek Gerilim) elektrik altyapı ve trafo sistemlerinde uzman kadrolarımızla çözümler sunmaktayız. Elektriğin, trafolardan son kullanıcıya kadar sağlıklı, güvenli ve kesintisiz bir şekilde ulaşmasını sağlayan projeler geliştiriz.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.kgg.com.tr/pic/service/9.jpg" alt="Kartlı Geçişler ve Turnike Sistemleri">
+          <div class="body">
+            <h3>Kartlı Geçişler ve Turnike Sistemleri</h3>
+            <p>Yemekhane aboneliklerinde, bina girişlerinde ve benzeri yerlerde kartlı doğrulamaya ve turnikeye ihtiyaç duyulan her noktada yardımcınız olmaktan memnuniyet duyaruz.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.bertelekom.com/images/cozumlerimiz/elektrik_taahhut_proje/elektrik_taahhut_05.jpg" alt="Elektrik Taahüt Projeleri">
+          <div class="body">
+            <h3>Elektrik Taahüt Projeleri</h3>
+            <p>Temel Elektrik grubu olarak sıfırdan teslim aldığımız binalarınızda ve inşaatlarınızda anahtar teslim şeklinde de hizmet vermekteyiz. Teslim aldığımız projelerde eksiksiz, hatasız ve kusursuz teslim yapmak prensibimizdir.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://barisiletisim.com.tr/images/blog/goruntulu-diafon-nedir.jpg" alt="Görüntülü Diyafon Servisi">
+          <div class="body">
+            <h3>Görüntülü Diyafon Servisi</h3>
+            <p>Uzman ekibimiz görüntülü ve sesli iletim sağlayan diyafon/diafon hizmeti vermektedir.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.easguvenlik.com.tr/upload/2023/03/2-guvenlik-kamera-sistemleri-nasil-calisir.webp" alt="Güvenlik Kamerası Sistemleri">
+          <div class="body">
+            <h3>Güvenlik Kamerası Sistemleri</h3>
+            <p>Profesyonel şekilde montajlanan ve kesintisiz kayıt yapan güvenlik kamerası sistemlerimizi evinize ve iş yerinize taktırarak güvenliğinizi üst çıtaya çıkartabilirsiniz.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.hirdavatfirsati.com//images/prod/6839.jpg" alt="Çipli Kapı Kilidi Sistemleri">
+          <div class="body">
+            <h3>Çipli Kapı Kilidi Sistemleri</h3>
+            <p>Binanızın ve iş yerinizin güvenliği için çipli kapı kilidi montajı hizmeti ve tamiri yapmaktayız.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://image.hurimg.com/i/hurriyet/90/750x422/5d2d8ca07152d802eccaabd3.jpg" alt="Fiber Altyapı Sistemi">
+          <div class="body">
+            <h3>Fiber Altyapı Sistemi</h3>
+            <p>Yoldan binaya, binadan evinize kadar fiber altyapıyı taşıyabiliriz. Temel Elektrik grubu olarak alanında uzman kadromuz ile internet altyapısı çözümleri sunmaktayız.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://kilicelektrik.com.tr/wp-content/uploads/2023/10/Cevre-Aydinlatma-Sistemleri.jpg" alt="Çevre Aydınlatma Sistemleri">
+          <div class="body">
+            <h3>Çevre Aydınlatma Sistemleri</h3>
+            <p>Site aydınlatma, çevre aydınlatma ve dizayn işlerinde Temel Elektrik grubu olarak hizmet vermekteyiz.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.asisttech.com.tr/blog/asisttech-blog-elektrik-panosu-periyodik-kontrol-ve-muayenesi.jpg" alt="Elektrik Pano Sistemleri">
+          <div class="body">
+            <h3>Elektrik Pano Sistemleri</h3>
+            <p>Bina panolarında ve teknik detay gerektiren işlemlerde Temel Elektrik olarak sizlere yardımcı olmaktan mutluluk duyaruz.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.dijitalmustafa.com/wp-content/uploads/2025/08/beylikduzu-elektrik-tamircisi.webp" alt="Elektrik Teknik Servisi - Etimesgut elektrikçi">
+          <div class="body">
+            <h3>Elektrik Teknik Servisi</h3>
+            <p>Ev ve iş yerleri için güvenli, düzenli, yönetmeliklere uygun çözümler.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="img" src="https://www.elektrikciankara.com/images/upload/_1710264640.jpg" alt="Pano ve Tesisat - Ankara elektrikçi">
+          <div class="body">
+            <h3>Eviniz İçin Elektrik Tesisat İşlemleri</h3>
+            <p>Pano düzenleme, kaçak akım rölesi, sigorta/priz hattı düzeni, lamba düğmeleri konum ayarlama ve tesisat revizyon işleri.</p>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <footer>
-      <p>© 2025 Temel Elektrik | temelelektrik.net</p>
-    </footer>
+    <!-- YORUMLAR -->
+    <section class="reviews">
+      <div class="section-title">
+        <h2>Müşteri Geri Bildirimleri</h2>
+        <div style="font-weight:900;color:#444;">Dürüst ve şeffaf hizmet</div>
+      </div>
 
-    <a class="whatsapp-button" target="_blank" rel="noopener"
-       href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum."
-       aria-label="WhatsApp ile iletişime geç">
-      💬 WhatsApp
-    </a>
+      <div class="review-grid" style="margin-top:14px;">
+        <div class="review">
+          <div class="stars" aria-label="5 yıldız">★★★★★</div>
+          <p>“Acil arızamız vardı harbiden hızlı geldiler. Sorunu kısa sürede tespit edip temiz işçilikle çözdüler. Kürşat abimin ve ekibinin ellerine sağlık.”</p>
+          <div class="who">Miraç Erbakan <span>• Sincan</span></div>
+        </div>
 
-    <div class="mobile-bar" aria-label="Hızlı İletişim">
-      <a class="mcall" href="tel:05071532862">📞 Ara (0507 153 28 62)</a>
-      <a class="mcall" href="tel:05413586606">📞 Ara (0541 358 66 06)</a>
-      <a class="mwa" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">💬 WhatsApp</a>
+        <div class="review">
+          <div class="stars" aria-label="5 yıldız">★★★★★</div>
+          <p>“Elektrikli arabam için pano düzenleme ve kaçak akım rölesi montajı yaptırdım. Sürecin her aşamasında bilgilendirdiler, güven verdiler.”</p>
+          <div class="who">Akif Sağlam <span>• Yenikent</span></div>
+        </div>
+
+        <div class="review">
+          <div class="stars" aria-label="5 yıldız">★★★★★</div>
+          <p>“Avize montajı ve priz hattı yenileme işi için çağırdım. Fiyatta yardımcı oldular, işçilikten memnun kaldım. Tavsiye ederim.”</p>
+          <div class="who">Ozan Buldu <span>• Etimesgut</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSS -->
+    <section class="faq">
+      <div class="section-title">
+        <h2>Sık Sorulan Sorular</h2>
+        <div style="font-weight:900;color:#444;">Kısa, net cevaplar</div>
+      </div>
+
+      <details>
+        <summary>7/24 hizmet veriyor musunuz?</summary>
+        <p>Evet. Acil elektrik arızalarında günün her saatinde ulaşabilirsiniz. Yoğunluğa göre en hızlı şekilde yönlendirme yapılır.</p>
+      </details>
+
+      <details>
+        <summary>Hangi bölgelerde hizmet veriyorsunuz?</summary>
+        <p>Sincan, Etimesgut, Yenikent, Temelli, Yapracık TOKİ, Ortapınar TOKİ ve Ankara genelinde hizmet veriyoruz.</p>
+      </details>
+
+      <details>
+        <summary>Kaçak akım rölesi / pano düzenleme yapıyor musunuz?</summary>
+        <p>Pano düzenleme, kaçak akım rölesi montajı, sigorta değişimi ve tesisat kontrolü yapıyoruz.</p>
+      </details>
+    </section>
+
+    <!-- Google Maps -->
+    <section class="maps">
+      <h2>Google Maps Konum</h2>
+      <p>Konumumuzu aşağıdaki haritadan görüntüleyebilirsiniz.</p>
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.0266269204913!2d32.516730599999995!3d40.007852799999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d32fe8ba4b7943%3A0xb536d99dd2857f16!2sTEMEL%20ELEKTR%C4%B0K!5e0!3m2!1str!2str!4v1766405344691!5m2!1str!2str"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </section>
+
+  </main>
+
+  <!-- MAHALLELER -->
+  <section class="neighborhoods">
+    <div class="neighborhoods-card">
+      <h2>Hizmet Bölgeleri (Sincan Mahalleleri)</h2>
+
+      <details>
+        <summary>Mahalle listesini göster</summary>
+        <div class="neighborhoods-grid">
+          <div class="nb-item">29 EKİM MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">ADALET MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">AHİ EVRAN MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">AKÇAÖREN MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">AKŞEMSETTİN MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">ATATÜRK MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">FATİH MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">TÖREKENT MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">TEMELLİ ELEKTRİKÇİ</div>
+          <div class="nb-item">YENİKENT ELEKTRİKÇİ</div>
+          <div class="nb-item">YAPRACIK ELEKTRİKÇİ</div>
+          <div class="nb-item">TURKUAZ TOKİ ELEKTRİKÇİ</div>
+          <div class="nb-item">ORTAPINAR TOKİ ELEKTRİKÇİ</div>
+          <div class="nb-item">YAPRACIK TOKİ ELEKTRİKÇİ</div>
+          <div class="nb-item">CİMŞİT MAHALLESİ ELEKTRİKÇİ</div>
+          <div class="nb-item">PEÇENEK TOKİ ELEKTRİKÇİ</div>
+          <div class="nb-item">SARAYCIK TOKİ ELEKTRİKÇİ</div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- İLETİŞİM -->
+  <section class="contact">
+    <h2>İletişim</h2>
+    <p>7 gün 24 saat hizmetinizdeyiz.</p>
+
+    <div class="contact-phones" aria-label="Telefon numaraları">
+      <a class="contact-phone" href="tel:05071532862">📞 0507 153 28 62</a>
+      <a class="contact-phone" href="tel:05413586606">📞 0541 358 66 06</a>
     </div>
 
-  </div><!-- /#site -->
+    <div class="contact-quick">
+      <a class="btn btn-call" href="tel:05071532862">📞 Hemen Ara (0507 153 28 62)</a>
+      <a class="btn btn-call" href="tel:05413586606">📞 Hemen Ara (0541 358 66 06)</a>
+      <a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">💬 WhatsApp</a>
+    </div>
 
-  <script>
-    (function(){
-      const intro = document.getElementById("intro");
-      const site  = document.getElementById("site");
-      const video = document.getElementById("introVideo");
-      const skip  = document.getElementById("skipIntro");
+    <p style="margin-top:14px;font-weight:800;">Sincan / Ankara</p>
+  </section>
 
-      let shown = false;
+  <footer>
+    <p>© 2025 Temel Elektrik | temelelektrik.net</p>
+  </footer>
 
-      function showSite(){
-        if(shown) return;
-        shown = true;
-        if(intro) intro.style.display = "none";
-        if(site) site.classList.remove("hidden");
-        document.body.classList.remove("intro-on");
-      }
+  <a class="whatsapp-button" target="_blank" rel="noopener"
+     href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum."
+     aria-label="WhatsApp ile iletişime geç">
+    💬 WhatsApp
+  </a>
 
-      // Video bittiğinde siteyi aç (HER GİRİŞTE OYNAR)
-      if(video){
-        video.addEventListener("ended", showSite);
-
-        // iOS bazen autoplay’ı geciktirebiliyor: yine de dene
-        try{
-          const p = video.play();
-          if(p && p.catch) p.catch(()=>{});
-        }catch(e){}
-      }
-
-      // Kullanıcı geçmek isterse
-      if(skip){
-        skip.addEventListener("click", function(){
-          try{ if(video) video.pause(); }catch(e){}
-          showSite();
-        });
-      }
-
-      // Güvenlik: video hiç yüklenmez / oynatılmazsa 3.5 sn sonra site açılsın
-      const fallback = setTimeout(showSite, 3500);
-      if(video){
-        video.addEventListener("playing", ()=> clearTimeout(fallback));
-        video.addEventListener("loadeddata", ()=> clearTimeout(fallback));
-        video.addEventListener("canplay", ()=> clearTimeout(fallback));
-      }
-    })();
-  </script>
+  <div class="mobile-bar" aria-label="Hızlı İletişim">
+    <a class="mcall" href="tel:05071532862">📞 Ara (0507 153 28 62)</a>
+    <a class="mcall" href="tel:05413586606">📞 Ara (0541 358 66 06)</a>
+    <a class="mwa" target="_blank" rel="noopener" href="https://wa.me/905071532862?text=Merhaba,%20elektrik%20hizmeti%20almak%20istiyorum.">💬 WhatsApp</a>
+  </div>
 
 </body>
 </html>
