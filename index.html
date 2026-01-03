@@ -57,7 +57,7 @@ FILE: /index.html
     .utility-bar .pill{
       color: var(--brand);
       text-decoration:none;
-      padding: 8px 12px; /* 🔥 eşit/oturaklı */
+      padding: 8px 12px;
       border-radius: 999px;
       background: rgba(255,255,255,.06);
       white-space: nowrap;
@@ -148,24 +148,21 @@ FILE: /index.html
       background:#000;
     }
 
-    /* güzel oran: masaüstü daha geniş, mobil daha uzun */
     .hero-video{
       width: 100%;
       height: auto;
       display:block;
       aspect-ratio: 16 / 9;
-      object-fit: cover;     /* altaselektrik gibi dolu görünüm */
+      object-fit: cover;
       object-position: center;
       background:#000;
     }
 
-    /* Mobilde çok kesmesin diye cover->contain geç */
     @media (max-width: 640px){
       .hero-video{ object-fit: contain; aspect-ratio: 4 / 3; }
       .hero-video-wrap{ border-radius: 18px; }
     }
 
-    /* küçük bir karartı + yazı istersek diye altyapı (şimdilik boş) */
     .hero-video-overlay{
       position:absolute;
       inset:0;
@@ -307,6 +304,125 @@ FILE: /index.html
     .card .body{ padding: 14px 14px 16px; }
     .card h3{ margin: 6px 0 6px; }
     .card p{ margin: 0; color:#444; font-weight: 700; line-height: 1.55; }
+
+    /* =========================
+       ✅ KAYAR REFERANSLAR ŞERİDİ
+    ========================= */
+    .logo-strip{
+      margin-top: 22px;
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+      padding: 14px 14px 16px;
+    }
+    .logo-strip .strip-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .logo-strip .strip-head h2{ margin:0; }
+    .logo-strip .strip-head .hint{
+      font-weight:900;
+      color:#444;
+    }
+
+    .marquee{
+      position: relative;
+      overflow:hidden;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fafafa, #ffffff);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .marquee:before,
+    .marquee:after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      width: 70px;
+      z-index: 2;
+      pointer-events:none;
+    }
+    .marquee:before{
+      left:0;
+      background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+    }
+    .marquee:after{
+      right:0;
+      background: linear-gradient(270deg, rgba(255,255,255,1), rgba(255,255,255,0));
+    }
+
+    .marquee-track{
+      display:flex;
+      gap: 14px;
+      padding: 12px;
+      width: max-content;
+      animation: marqueeScroll 28s linear infinite;
+    }
+    .marquee:hover .marquee-track{
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll{
+      from{ transform: translateX(0); }
+      to{ transform: translateX(-50%); }
+    }
+
+    /* ✅ Güncellendi: hover büyüme + gölge */
+    .logo-pill{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      white-space: nowrap;
+      user-select:none;
+
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      will-change: transform;
+    }
+    .logo-pill:hover{
+      transform: translateY(-1px) scale(1.06);
+      box-shadow: 0 16px 34px rgba(0,0,0,.14);
+      border-color: rgba(0,0,0,.14);
+    }
+
+    .logo-pill img{
+      height: 34px;
+      width: auto;
+      max-width: 150px;
+      display:block;
+      object-fit: contain;
+      filter: saturate(1.02) contrast(1.02);
+
+      transition: transform .18s ease;
+    }
+    .logo-pill:hover img{
+      transform: scale(1.03);
+    }
+
+    @media (max-width: 720px){
+      .marquee:before, .marquee:after{ width: 48px; }
+      .logo-pill img{ height: 30px; max-width: 120px; }
+      .marquee-track{ animation-duration: 22s; }
+
+      .logo-pill:hover{
+        transform: translateY(-1px) scale(1.03);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .marquee-track{ animation: none; }
+    }
 
     .reviews{ margin-top: 22px; }
     .review-grid{
@@ -571,17 +687,14 @@ FILE: /index.html
 
     <p class="hero-sub">Ankara / Sincan başta olmak üzere profesyonel elektrik hizmetleri</p>
 
-    <!-- ✅ VIDEO: bu satır tam senin istediğin yere -->
     <div class="hero-video-wrap" aria-label="Temel Elektrik tanıtım videosu">
       <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-        <!-- BURAYI KENDİ DİZİNİNE GÖRE AYARLA -->
         <source src="/assets/videos/sitegirisi.mp4" type="video/mp4">
         Tarayıcınız video etiketini desteklemiyor.
       </video>
       <div class="hero-video-overlay" aria-hidden="true"></div>
     </div>
 
-    <!-- ✅ CHIPLER videonun ALTINDA kaldı -->
     <div class="hero-points" aria-label="Öne çıkanlar">
       <div class="chip">⚡ Hızlı Müdahale</div>
       <div class="chip">🛡️ Güvenli İşçilik</div>
@@ -725,6 +838,38 @@ FILE: /index.html
           </div>
         </article>
       </div>
+    </section>
+
+    <!-- ✅ KAYAR ŞERİT: REFERANSLAR (YORUMLARIN ÜSTÜ) -->
+    <section class="logo-strip" aria-label="Referanslarımız kayar şerit">
+      <div class="strip-head">
+        <h2>Birlikte Çalıştıklarımız</h2>
+        <div class="hint">Şeridin üstüne gelince durur</div>
+      </div>
+
+      <div class="marquee" role="region" aria-label="Referans görselleri kayar şerit">
+        <div class="marquee-track" aria-hidden="false">
+          <!-- 1. set -->
+          <div class="logo-pill"><img src="/assets/images/ciftciler.jpeg" alt="Referans 1"></div>
+          <div class="logo-pill"><img src="/assets/images/narcin.jpeg" alt="Referans 2"></div>
+          <div class="logo-pill"><img src="/assets/images/orkun.jpeg" alt="Referans 3"></div>
+          <div class="logo-pill"><img src="/assets/images/mirac.jpeg" alt="Referans 4"></div>
+          <div class="logo-pill"><img src="/assets/images/akif.jpeg" alt="Referans 5"></div>
+          <div class="logo-pill"><img src="/assets/images/ozan.jpeg" alt="Referans 6"></div>
+
+          <!-- 2. set (aynısı) -->
+          <div class="logo-pill"><img src="/assets/images/ciftciler.jpeg" alt="Referans 1"></div>
+          <div class="logo-pill"><img src="/assets/images/narcin.jpeg" alt="Referans 2"></div>
+          <div class="logo-pill"><img src="/assets/images/orkun.jpeg" alt="Referans 3"></div>
+          <div class="logo-pill"><img src="/assets/images/mirac.jpeg" alt="Referans 4"></div>
+          <div class="logo-pill"><img src="/assets/images/akif.jpeg" alt="Referans 5"></div>
+          <div class="logo-pill"><img src="/assets/images/ozan.jpeg" alt="Referans 6"></div>
+        </div>
+      </div>
+
+      <p class="section-sub" style="margin-top:10px;">
+        Daha fazlasını görmek için <a href="/referanslar/" style="color:#111;text-decoration:underline;font-weight:900;">Referanslarımız</a> sayfasına göz atın.
+      </p>
     </section>
 
     <!-- YORUMLAR -->
