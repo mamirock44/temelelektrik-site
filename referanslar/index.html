@@ -36,35 +36,48 @@ FILE: /referanslar/index.html
     a{ color:inherit; text-decoration:none; }
     img{ display:block; max-width:100%; }
 
-    /* ===== ÜST MENÜ ===== */
+    /* ===== ÜST MENÜ (ANASAYFA İLE EŞİT) ===== */
     .utility-bar{
       background: var(--dark);
       color:#fff;
-      padding:10px 14px;
+      padding: 10px 14px;          /* ✅ standart */
       display:flex;
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
       font-weight:900;
-      font-size:14px;
+      font-size:14px;               /* ✅ standart */
+      line-height:1;                /* ✅ sapmayı azaltır */
+
       position:sticky;
       top:0;
       z-index:50;
       border-bottom:1px solid rgba(255,255,255,.08);
       backdrop-filter: blur(10px);
     }
+
     .utility-bar .pill{
       color:var(--brand);
-      padding:8px 12px;
+      text-decoration:none;
+
+      /* ✅ buton boy standardı */
+      padding: 10px 14px;           /* ✅ standart */
+      min-height: 40px;             /* ✅ 3 sayfada eşit yükseklik */
       border-radius:999px;
+
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.10);
+
       display:inline-flex;
       align-items:center;
+      justify-content:center;       /* ✅ ortala */
       gap:8px;
+
       white-space:nowrap;
+      line-height:1;                /* ✅ emoji/yazı dikey kaymaz */
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
+
     .utility-bar .pill:hover{
       transform: translateY(-1px);
       background: rgba(255,255,255,.10);
@@ -137,6 +150,7 @@ FILE: /referanslar/index.html
       font-weight:900;
       color:#111;
       box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      line-height:1;
     }
 
     /* ===== LAYOUT ===== */
@@ -291,6 +305,8 @@ FILE: /referanslar/index.html
       background:#fff;
       box-shadow: 0 10px 24px rgba(0,0,0,.08);
       transition: transform .12s ease, box-shadow .12s ease;
+      line-height:1;
+      min-height:48px;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -316,6 +332,8 @@ FILE: /referanslar/index.html
       font-weight: 900;
       border: 1px solid rgba(255,255,255,.08);
       box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      line-height:1;
+      min-height:48px;
     }
     .back:focus, .pill:focus, .btn:focus{
       outline:none;
@@ -360,7 +378,6 @@ FILE: /referanslar/index.html
     <section class="panel" aria-label="Referanslarımız">
       <div class="head">
         <h2>Çalıştığımız Firmalar</h2>
-
       </div>
 
       <!-- ✅ KATEGORİLEME YOK — SADECE GRID -->
@@ -372,7 +389,6 @@ FILE: /referanslar/index.html
           </div>
           <div class="ref-meta">
             <div class="ref-name">Çiftçiler İnşaat</div>
-
           </div>
         </div>
 
@@ -382,7 +398,6 @@ FILE: /referanslar/index.html
           </div>
           <div class="ref-meta">
             <div class="ref-name">Doğanşah İnşaat</div>
-
           </div>
         </div>
 
@@ -392,7 +407,6 @@ FILE: /referanslar/index.html
           </div>
           <div class="ref-meta">
             <div class="ref-name">M. Narçin İnşaat</div>
-
           </div>
         </div>
 
@@ -402,7 +416,6 @@ FILE: /referanslar/index.html
           </div>
           <div class="ref-meta">
             <div class="ref-name">MYM İnşaat Mimarlık</div>
-
           </div>
         </div>
 
@@ -412,14 +425,13 @@ FILE: /referanslar/index.html
           </div>
           <div class="ref-meta">
             <div class="ref-name">Osmanoğlu Grup</div>
-
           </div>
         </div>
 
         <div class="ref-card" role="listitem">
           <div class="ref-logo">
-
-            <img src="/assets/images/aslankan.png" alt="Referans Firma 6" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-weight:900;color:#555;text-align:center;line-height:1.4&quot;>Logo eklenmedi<br><span style=&quot;font-weight:800;color:#777;font-size:13px&quot;>/assets/images/firma6.jpeg</span></div>';">
+            <img src="/assets/images/aslankan.png" alt="Referans Firma 6" loading="lazy"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-weight:900;color:#555;text-align:center;line-height:1.4&quot;>Logo eklenmedi<br><span style=&quot;font-weight:800;color:#777;font-size:13px&quot;>/assets/images/firma6.jpeg</span></div>';">
           </div>
           <div class="ref-meta">
             <div class="ref-name">Aslankanyapı İnşaat</div>
@@ -452,5 +464,3 @@ FILE: /referanslar/index.html
 
 </body>
 </html>
-
-
