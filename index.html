@@ -12,7 +12,7 @@ FILE: /index.html
 
   <!-- SEO -->
   <meta name="description" content="Temel Elektrik: Sincan, Etimesgut, Yenikent, Temelli ve Ankara genelinde 7/24 elektrik arıza, pano, tesisat, uydu-anten, internet kablolama ve LED dizayn hizmetleri. Hemen arayın: 0507 153 28 62 / 0541 358 66 06" />
-  <meta name="keywords" content="Sincan elektrikçi, Etimesgut elektrikçi, Yenikent elektrikçi, Temelli elektrikçi, Ankara elektrikçi, elektrik arıza, pano, tesisat, avize montajı, internet kablolama, uydu-anten, sincan elektirikçi, temelli elektirikçi" />
+  <meta name="keywords" content="Sincan elektrikçi, Etimesgut elektrikçi, Yenikent elektrikçi, Temelli elektrikçi, Ankara elektrikçi, elektrik arıza, pano, tesisat, internet kablolama, uydu-anten, sincan elektirikçi, temelli elektirikçi" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Temel Elektrik | Sincan Elektrikçi" />
@@ -359,10 +359,11 @@ FILE: /index.html
 
     .marquee-track{
       display:flex;
-      gap: 14px;
-      padding: 12px;
+      gap: 16px;
+      padding: 14px;
       width: max-content;
       animation: marqueeScroll 28s linear infinite;
+      align-items:center;
     }
     .marquee:hover .marquee-track{
       animation-play-state: paused;
@@ -373,13 +374,13 @@ FILE: /index.html
       to{ transform: translateX(-50%); }
     }
 
-    /* ✅ Güncellendi: hover büyüme + gölge */
+    /* ✅ BÜYÜTÜLDÜ: logo pill + logo img */
     .logo-pill{
       display:flex;
       align-items:center;
       justify-content:center;
-      gap: 10px;
-      padding: 10px 14px;
+      padding: 14px 18px;           /* büyüdü */
+      min-height: 78px;             /* büyüdü */
       border-radius: 999px;
       background: #fff;
       border: 1px solid rgba(0,0,0,.08);
@@ -397,13 +398,12 @@ FILE: /index.html
     }
 
     .logo-pill img{
-      height: 34px;
+      height: 56px;                 /* 🔥 34px -> 56px */
       width: auto;
-      max-width: 150px;
+      max-width: 220px;             /* 🔥 150px -> 220px */
       display:block;
       object-fit: contain;
       filter: saturate(1.02) contrast(1.02);
-
       transition: transform .18s ease;
     }
     .logo-pill:hover img{
@@ -412,8 +412,16 @@ FILE: /index.html
 
     @media (max-width: 720px){
       .marquee:before, .marquee:after{ width: 48px; }
-      .logo-pill img{ height: 30px; max-width: 120px; }
       .marquee-track{ animation-duration: 22s; }
+
+      .logo-pill{
+        padding: 12px 16px;
+        min-height: 68px;
+      }
+      .logo-pill img{
+        height: 46px;              /* 🔥 30px -> 46px */
+        max-width: 200px;
+      }
 
       .logo-pill:hover{
         transform: translateY(-1px) scale(1.03);
@@ -1005,5 +1013,3 @@ FILE: /index.html
 
 </body>
 </html>
-
-
