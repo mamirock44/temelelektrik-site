@@ -12,6 +12,7 @@
       --brand:#ffcc00; --dark:#161616; --dark2:#232323; --bg:#f4f4f4;
       --card:#ffffff; --muted:#6b6b6b; --wa:#25D366;
       --shadow: 0 12px 28px rgba(0,0,0,.10); --radius:16px;
+      --ring: 0 0 0 4px rgba(255,204,0,.22);
     }
     *{ box-sizing:border-box; }
     body{
@@ -22,26 +23,52 @@
     }
     a{ color:inherit; text-decoration:none; }
 
-    /* ÜST MENÜ */
+    /* =========================
+       ÜST MENÜ (3 SAYFADA AYNI)
+    ========================= */
     .utility-bar{
       background:#0f0f0f;
-      padding:8px;
+      color:#fff;
+      padding: 10px 14px;          /* ✅ standart */
       display:flex;
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
       font-weight:900;
+      font-size:14px;               /* ✅ standart */
+      line-height:1;                /* ✅ sapmayı azaltır */
     }
-    .pill{
+    .utility-bar .pill{
       background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.1);
-      padding:6px 12px;
-      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
       color:var(--brand);
+
+      /* ✅ buton boy standardı */
+      padding: 10px 14px;           /* ✅ standart */
+      min-height: 40px;             /* ✅ eşit yükseklik */
+      border-radius:999px;
+
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;       /* ✅ ortala */
+      gap:8px;
+      white-space:nowrap;
+      line-height:1;                /* ✅ emoji/yazı dikey kaymaz */
+
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .pill.active{
-      background:rgba(255,204,0,.2);
-      border-color:rgba(255,204,0,.6);
+    .utility-bar .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+    .utility-bar .pill.active{
+      background:rgba(255,204,0,.20);
+      border-color:rgba(255,204,0,.60);
+    }
+    .pill:focus{
+      outline:none;
+      box-shadow: var(--ring);
     }
 
     /* HEADER */
@@ -61,12 +88,14 @@
       padding:8px 14px;
       border-radius:999px;
       font-weight:900;
+      line-height:1;
     }
     .badge-30 span{
       background:var(--brand);
       color:#111;
       padding:2px 8px;
       border-radius:999px;
+      line-height:1;
     }
 
     /* ANA ALAN */
@@ -115,11 +144,13 @@
       border-radius:14px;
       padding:14px;
       font-weight:900;
+      line-height:1.35;
     }
     .kpi small{
       display:block;
       margin-top:4px;
       color:var(--muted);
+      line-height:1.4;
     }
 
     @media(max-width:700px){
@@ -157,10 +188,18 @@
       border-radius:14px;
       font-weight:900;
       box-shadow:0 8px 18px rgba(0,0,0,.18);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      line-height:1;
+      min-height:48px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
     }
-    .btn.primary{ background:var(--brand); color:#111; }
-    .btn.wa{ background:var(--wa); color:#fff; }
-    .btn.dark{ background:var(--dark2); color:var(--brand); }
+    .btn.primary{ background:var(--brand); color:#111; border-color: rgba(0,0,0,.08); }
+    .btn.wa{ background:var(--wa); color:#fff; border-color: rgba(255,255,255,.12); }
+    .btn.dark{ background:var(--dark2); color:var(--brand); border-color: rgba(255,255,255,.08); }
 
     footer{
       margin-top:30px;
@@ -237,7 +276,7 @@
 
       <div class="cta">
         <a class="btn primary" href="tel:05071532862">📞 0507 153 28 62</a>
-        <a class="btn wa" target="_blank" href="https://wa.me/905071532862">💬 WhatsApp</a>
+        <a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/905071532862">💬 WhatsApp</a>
         <a class="btn dark" href="/">🏠 Ana Sayfa</a>
       </div>
 
