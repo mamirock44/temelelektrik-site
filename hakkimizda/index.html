@@ -24,7 +24,7 @@
     a{ color:inherit; text-decoration:none; }
 
     /* =========================
-       ÜST MENÜ (3 SAYFADA AYNI)
+       ÜST MENÜ
     ========================= */
     .utility-bar{
       background:#0f0f0f;
@@ -148,7 +148,6 @@
       color:var(--muted);
       line-height:1.4;
     }
-
     @media(max-width:700px){
       .kpi{ grid-template-columns:1fr; }
     }
@@ -171,58 +170,6 @@
     }
     .listbox ul{ padding-left:18px; margin:0; }
     .listbox li{ margin:8px 0; font-weight:900; }
-
-    /* ✅ PROJE GALERİSİ (BÜYÜK FOTO) */
-    .project-section{
-      margin-top:26px;
-      padding-top:18px;
-      border-top:1px solid rgba(0,0,0,.08);
-    }
-    .project-section h3{
-      margin:0 0 8px 0;
-      font-size:20px;
-    }
-    .project-section .hint{
-      margin:0 0 16px 0;
-      color:var(--muted);
-      font-weight:700;
-      line-height:1.55;
-    }
-    .project-gallery{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-    }
-    .project-photo{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.07);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 12px 26px rgba(0,0,0,.10);
-    }
-    /* tıklanabilir alan */
-    .project-link{
-      display:block;
-      position:relative;
-      cursor:zoom-in;
-      outline:none;
-    }
-    .project-link:focus{
-      box-shadow: var(--ring);
-      border-radius:18px;
-    }
-    .project-photo img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
-    .project-photo figcaption{
-      padding:10px 12px;
-      font-weight:900;
-      color:#222;
-      background:linear-gradient(180deg,#ffffff, #fafafa);
-      border-top:1px solid rgba(0,0,0,.06);
-    }
 
     /* BUTONLAR */
     .cta{
@@ -249,6 +196,71 @@
     .btn.wa{ background:var(--wa); color:#fff; border-color: rgba(255,255,255,.12); }
     .btn.dark{ background:var(--dark2); color:var(--brand); border-color: rgba(255,255,255,.08); }
 
+    /* =========================
+       ✅ PROJE GALERİSİ (2 KOLON + EŞİT YÜKSEKLİK)
+    ========================= */
+    .project-section{
+      margin-top:26px;
+      padding-top:18px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+    .project-section h3{
+      margin:0 0 8px 0;
+      font-size:20px;
+    }
+    .project-section .hint{
+      margin:0 0 16px 0;
+      color:var(--muted);
+      font-weight:700;
+      line-height:1.55;
+    }
+
+    .project-gallery{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+    @media(max-width:700px){
+      .project-gallery{ grid-template-columns:1fr; }
+    }
+
+    .project-photo{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 26px rgba(0,0,0,.10);
+    }
+    .project-link{
+      display:block;
+      cursor:zoom-in;
+      outline:none;
+    }
+    .project-link:focus{
+      box-shadow: var(--ring);
+      border-radius:18px;
+    }
+    /* EŞİT YÜKSEKLİK: sabit yükseklik + cover */
+    .project-photo img{
+      width:100%;
+      height:320px;          /* burada istersen 280/360 yap */
+      object-fit:cover;
+      display:block;
+      background:#111;
+    }
+    @media(max-width:700px){
+      .project-photo img{ height:260px; }
+    }
+
+    .project-photo figcaption{
+      padding:10px 12px;
+      font-weight:900;
+      color:#222;
+      background:linear-gradient(180deg,#ffffff, #fafafa);
+      border-top:1px solid rgba(0,0,0,.06);
+      text-align:center;
+    }
+
     footer{
       margin-top:30px;
       background:#0f0f0f;
@@ -258,7 +270,7 @@
     }
 
     /* =========================
-       ✅ LIGHTBOX
+       ✅ LIGHTBOX (OK TUŞU + SWIPE + ESC)
     ========================= */
     .lb{
       position:fixed;
@@ -417,118 +429,120 @@
         </div>
       </div>
 
-      <!-- ✅ YENİ: SIFIR İŞLER GALERİSİ + LIGHTBOX -->
+      <!-- ✅ SIFIR İŞLER GALERİSİ (2 KOLON + EŞİT YÜKSEKLİK) -->
       <section class="project-section" aria-label="Anahtar teslim projelerimiz">
         <h3>🏗️ Sıfırdan teslim alıp anahtar teslim yaptığımız bazı projelerimiz</h3>
         <p class="hint">
-          Aşağıda bazı projelerimizden görüntüler yer alıyor. Fotoğraflara tıklayınca büyür.
+          Fotoğraflar 2 kolon ve eşit yükseklikte. Tıklayınca büyür; sağ/sol ile geçiş yaparsın.
         </p>
 
         <div class="project-gallery">
+
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(1).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 1">
               <img loading="lazy" src="../assets/images/sıfırisler(1).jpeg" alt="Anahtar teslim proje 1">
             </a>
-
+            <figcaption>Proje Fotoğrafı 1</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(2).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 2">
               <img loading="lazy" src="../assets/images/sıfırisler(2).jpeg" alt="Anahtar teslim proje 2">
             </a>
-
+            <figcaption>Proje Fotoğrafı 2</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(3).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 3">
               <img loading="lazy" src="../assets/images/sıfırisler(3).jpeg" alt="Anahtar teslim proje 3">
             </a>
-
+            <figcaption>Proje Fotoğrafı 3</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(4).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 4">
               <img loading="lazy" src="../assets/images/sıfırisler(4).jpeg" alt="Anahtar teslim proje 4">
             </a>
-
+            <figcaption>Proje Fotoğrafı 4</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(5).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 5">
               <img loading="lazy" src="../assets/images/sıfırisler(5).jpeg" alt="Anahtar teslim proje 5">
             </a>
-
+            <figcaption>Proje Fotoğrafı 5</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(6).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 6">
               <img loading="lazy" src="../assets/images/sıfırisler(6).jpeg" alt="Anahtar teslim proje 6">
             </a>
-
+            <figcaption>Proje Fotoğrafı 6</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(7).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 7">
               <img loading="lazy" src="../assets/images/sıfırisler(7).jpeg" alt="Anahtar teslim proje 7">
             </a>
-
+            <figcaption>Proje Fotoğrafı 7</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(8).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 8">
               <img loading="lazy" src="../assets/images/sıfırisler(8).jpeg" alt="Anahtar teslim proje 8">
             </a>
-
+            <figcaption>Proje Fotoğrafı 8</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(9).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 9">
               <img loading="lazy" src="../assets/images/sıfırisler(9).jpeg" alt="Anahtar teslim proje 9">
             </a>
-
+            <figcaption>Proje Fotoğrafı 9</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(10).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 10">
               <img loading="lazy" src="../assets/images/sıfırisler(10).jpeg" alt="Anahtar teslim proje 10">
             </a>
-
+            <figcaption>Proje Fotoğrafı 10</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(11).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 11">
               <img loading="lazy" src="../assets/images/sıfırisler(11).jpeg" alt="Anahtar teslim proje 11">
             </a>
-
+            <figcaption>Proje Fotoğrafı 11</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(12).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 12">
               <img loading="lazy" src="../assets/images/sıfırisler(12).jpeg" alt="Anahtar teslim proje 12">
             </a>
-
+            <figcaption>Proje Fotoğrafı 12</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(13).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 13">
               <img loading="lazy" src="../assets/images/sıfırisler(13).jpeg" alt="Anahtar teslim proje 13">
             </a>
-
+            <figcaption>Proje Fotoğrafı 13</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(14).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 14">
               <img loading="lazy" src="../assets/images/sıfırisler(14).jpeg" alt="Anahtar teslim proje 14">
             </a>
-
+            <figcaption>Proje Fotoğrafı 14</figcaption>
           </figure>
 
           <figure class="project-photo">
             <a class="project-link" href="../assets/images/sıfırisler(15).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 15">
               <img loading="lazy" src="../assets/images/sıfırisler(15).jpeg" alt="Anahtar teslim proje 15">
             </a>
-
+            <figcaption>Proje Fotoğrafı 15</figcaption>
           </figure>
+
         </div>
       </section>
 
@@ -599,7 +613,6 @@
           e.preventDefault();
           openAt(i);
         });
-        // klavye ile de açılabilsin
         a.addEventListener('keydown', (e) => {
           if(e.key === 'Enter' || e.key === ' '){
             e.preventDefault();
@@ -612,12 +625,10 @@
       btnPrev.addEventListener('click', prev);
       btnNext.addEventListener('click', next);
 
-      // arka plana tıklayınca kapat
       lb.addEventListener('click', (e) => {
         if(e.target === lb || e.target === lbImg) close();
       });
 
-      // klavye
       document.addEventListener('keydown', (e) => {
         if(!lb.classList.contains('open')) return;
         if(e.key === 'Escape') close();
@@ -625,7 +636,6 @@
         if(e.key === 'ArrowRight') next();
       });
 
-      // mobil swipe
       lb.addEventListener('touchstart', (e) => {
         if(!lb.classList.contains('open')) return;
         startX = e.touches[0].clientX;
@@ -648,4 +658,3 @@
 
 </body>
 </html>
-
