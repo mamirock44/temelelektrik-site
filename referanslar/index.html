@@ -40,14 +40,14 @@ FILE: /referanslar/index.html
     .utility-bar{
       background: var(--dark);
       color:#fff;
-      padding: 10px 14px;          /* ✅ standart */
+      padding: 10px 14px;
       display:flex;
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
       font-weight:900;
-      font-size:14px;               /* ✅ standart */
-      line-height:1;                /* ✅ sapmayı azaltır */
+      font-size:14px;
+      line-height:1;
 
       position:sticky;
       top:0;
@@ -59,10 +59,8 @@ FILE: /referanslar/index.html
     .utility-bar .pill{
       color:var(--brand);
       text-decoration:none;
-
-      /* ✅ buton boy standardı */
-      padding: 10px 14px;           /* ✅ standart */
-      min-height: 40px;             /* ✅ 3 sayfada eşit yükseklik */
+      padding: 10px 14px;
+      min-height: 40px;
       border-radius:999px;
 
       background:rgba(255,255,255,.06);
@@ -70,11 +68,11 @@ FILE: /referanslar/index.html
 
       display:inline-flex;
       align-items:center;
-      justify-content:center;       /* ✅ ortala */
+      justify-content:center;
       gap:8px;
 
       white-space:nowrap;
-      line-height:1;                /* ✅ emoji/yazı dikey kaymaz */
+      line-height:1;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
 
@@ -197,9 +195,128 @@ FILE: /referanslar/index.html
       font-size: 14px;
     }
 
+    /* =========================
+       ✅ KAYAR REFERANSLAR ŞERİDİ (ANASAYFADAKİ GİBİ)
+       + LOGO DAHA BÜYÜK
+    ========================= */
+    .logo-strip{
+      margin-top: 10px;
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position: relative;
+      padding: 14px 14px 16px;
+    }
+    .logo-strip .strip-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .logo-strip .strip-head h3{
+      margin:0;
+      font-size: 16px;
+      font-weight: 900;
+    }
+    .logo-strip .strip-head .hint{
+      font-weight:900;
+      color:#444;
+      font-size: 13px;
+    }
+
+    .marquee{
+      position: relative;
+      overflow:hidden;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fafafa, #ffffff);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .marquee:before,
+    .marquee:after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      width: 70px;
+      z-index: 2;
+      pointer-events:none;
+    }
+    .marquee:before{
+      left:0;
+      background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+    }
+    .marquee:after{
+      right:0;
+      background: linear-gradient(270deg, rgba(255,255,255,1), rgba(255,255,255,0));
+    }
+
+    .marquee-track{
+      display:flex;
+      gap: 22px;
+      padding: 18px;
+      width: max-content;
+      animation: marqueeScroll 26s linear infinite;
+      align-items:center;
+    }
+    .marquee:hover .marquee-track{ animation-play-state: paused; }
+
+    @keyframes marqueeScroll{
+      from{ transform: translateX(0); }
+      to{ transform: translateX(-50); } /* fallback */
+    }
+    @keyframes marqueeScroll{
+      from{ transform: translateX(0); }
+      to{ transform: translateX(-50%); }
+    }
+
+    /* ✅ referanslar sayfasında daha büyük */
+    .logo-pill{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 10px 12px;
+      user-select:none;
+      transition: transform .18s ease, filter .18s ease;
+      will-change: transform;
+    }
+    .logo-pill:hover{
+      transform: translateY(-1px) scale(1.06);
+      filter: drop-shadow(0 12px 20px rgba(0,0,0,.18));
+    }
+
+    .logo-pill img{
+      height: 86px;           /* 🔥 daha büyük */
+      width: auto;
+      max-width: 320px;
+      object-fit: contain;
+      transition: transform .18s ease;
+    }
+    .logo-pill:hover img{ transform: scale(1.03); }
+
+    @media (max-width: 720px){
+      .marquee:before, .marquee:after{ width: 48px; }
+      .marquee-track{ animation-duration: 20s; }
+      .logo-pill{ padding: 8px 10px; }
+      .logo-pill img{
+        height: 68px;         /* 🔥 mobil de büyük */
+        max-width: 260px;
+      }
+      .logo-pill:hover{ transform: translateY(-1px) scale(1.03); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .marquee-track{ animation: none; }
+    }
+
     /* ===== GRID ===== */
     .refs-grid{
-      margin-top: 10px;
+      margin-top: 14px;
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
@@ -376,9 +493,39 @@ FILE: /referanslar/index.html
 
   <main class="container">
     <section class="panel" aria-label="Referanslarımız">
+
       <div class="head">
         <h2>Çalıştığımız Firmalar</h2>
+        <p class="mini">Logoların üstüne gelince şerit durur.</p>
       </div>
+
+      <!-- ✅ KAYAR ŞERİT (ANASAYFADAKİ) -->
+      <section class="logo-strip" aria-label="Birlikte çalıştıklarımız kayar şerit">
+        <div class="strip-head">
+          <h3>Birlikte Çalıştıklarımız</h3>
+          <div class="hint">Şeridin üstüne gelince durur</div>
+        </div>
+
+        <div class="marquee" role="region" aria-label="Referans görselleri kayar şerit">
+          <div class="marquee-track" aria-hidden="false">
+            <!-- 1. set -->
+            <div class="logo-pill"><img src="/assets/images/aslankan.png" alt="Aslankanyapı İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/mnarcin.jpeg" alt="M. Narçin İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/ciftciler.jpeg?v=2" alt="Çiftçiler İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/dogansah.jpeg" alt="Doğanşah İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/mym.jpeg" alt="MYM İnşaat Mimarlık" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/osmanoglu.jpeg" alt="Osmanoğlu Grup" loading="lazy"></div>
+
+            <!-- 2. set (aynısı) -->
+            <div class="logo-pill"><img src="/assets/images/aslankan.png" alt="Aslankanyapı İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/mnarcin.jpeg" alt="M. Narçin İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/ciftciler.jpeg?v=2" alt="Çiftçiler İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/dogansah.jpeg" alt="Doğanşah İnşaat" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/mym.jpeg" alt="MYM İnşaat Mimarlık" loading="lazy"></div>
+            <div class="logo-pill"><img src="/assets/images/osmanoglu.jpeg" alt="Osmanoğlu Grup" loading="lazy"></div>
+          </div>
+        </div>
+      </section>
 
       <!-- ✅ KATEGORİLEME YOK — SADECE GRID -->
       <div class="refs-grid" role="list">
@@ -430,7 +577,7 @@ FILE: /referanslar/index.html
 
         <div class="ref-card" role="listitem">
           <div class="ref-logo">
-            <img src="/assets/images/aslankan.png" alt="Referans Firma 6" loading="lazy"
+            <img src="/assets/images/aslankan.png" alt="Aslankanyapı İnşaat" loading="lazy"
               onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-weight:900;color:#555;text-align:center;line-height:1.4&quot;>Logo eklenmedi<br><span style=&quot;font-weight:800;color:#777;font-size:13px&quot;>/assets/images/firma6.jpeg</span></div>';">
           </div>
           <div class="ref-meta">
@@ -439,8 +586,6 @@ FILE: /referanslar/index.html
         </div>
 
       </div>
-
-
 
       <div class="cta-row">
         <p class="cta-text">Siz de iş ortağımız olmak ister misiniz?</p>
@@ -460,5 +605,3 @@ FILE: /referanslar/index.html
 
 </body>
 </html>
-
-
