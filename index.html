@@ -30,6 +30,7 @@ FILE: /index.html
       --wa:#25D366;
       --shadow: 0 12px 28px rgba(0,0,0,.10);
       --radius: 16px;
+      --ring: 0 0 0 4px rgba(255,204,0,.22);
     }
 
     html{ scroll-behavior:smooth; }
@@ -42,9 +43,6 @@ FILE: /index.html
     }
     a{ color:inherit; }
 
-    /* =========================
-       INTRO VIDEO (SPLASH)
-    ========================= */
     /* =========================
        INTRO VIDEO (MOBİL UYUMLU)
     ========================= */
@@ -106,34 +104,54 @@ FILE: /index.html
     }
     body.intro-on{ overflow:hidden; }
 
-    /* Top utility bar */
+    /* =========================
+       TOP UTILITY BAR (GLOBAL STANDART)
+       - Hakkımızda + Referanslar ile aynı ölçü
+    ========================= */
     .utility-bar{
       background: #0f0f0f;
       color:#fff;
-      padding: 8px 14px;
+      padding: 10px 14px;        /* ✅ eşitlendi */
       display:flex;
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
       font-weight:900;
       font-size: 14px;
+      line-height: 1;
     }
     .utility-bar .pill{
       color: var(--brand);
       text-decoration:none;
-      padding: 6px 10px;
+
+      padding: 10px 14px;        /* ✅ eşitlendi */
+      min-height: 40px;          /* ✅ eşitlendi */
       border-radius: 999px;
+
       background: rgba(255,255,255,.06);
       white-space: nowrap;
-      border:1px solid rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap:8px;
+
+      line-height:1;             /* ✅ emoji kaymasını azaltır */
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .utility-bar .pill:hover{ background: rgba(255,255,255,.10); }
+    .utility-bar .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
     .utility-bar .pill.active{
       background: rgba(255,204,0,.18);
-      border-color: rgba(255,204,0,.55);
+      border-color: rgba(255,204,0,.60);
+    }
+    .utility-bar .pill:focus{
+      outline:none;
+      box-shadow: var(--ring);
     }
 
     header{
@@ -192,6 +210,7 @@ FILE: /index.html
       font-weight: 900;
       font-size: 14px;
       box-shadow: 0 6px 16px rgba(0,0,0,.18);
+      line-height:1;
     }
     .badge-30 span{
       background: var(--brand);
@@ -199,6 +218,7 @@ FILE: /index.html
       padding: 2px 8px;
       border-radius: 999px;
       font-weight: 900;
+      line-height:1;
     }
 
     .hero-sub{
@@ -224,6 +244,7 @@ FILE: /index.html
       border-radius: 999px;
       font-weight: 900;
       box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      line-height:1.2;
     }
 
     .header-cta{
@@ -609,7 +630,6 @@ FILE: /index.html
   <!-- INTRO VIDEO (GİRİŞTE AÇILIR) -->
   <div id="intro" aria-label="Temel Elektrik giriş videosu">
     <video id="introVideo" autoplay muted playsinline preload="auto">
-      <!-- BURAYI İSTEDİĞİN GİBİ DEĞİŞTİR -->
       <source src="/assets/videos/sitegirisi.mp4" type="video/mp4">
       Tarayıcınız video etiketini desteklemiyor.
     </video>
@@ -701,7 +721,7 @@ FILE: /index.html
             <img class="img" src="https://www.kgg.com.tr/pic/service/9.jpg" alt="Kartlı Geçişler ve Turnike Sistemleri">
             <div class="body">
               <h3>Kartlı Geçişler ve Turnike Sistemleri</h3>
-              <p>Yemekhane aboneliklerinde, bina girişlerinde ve benzeri yerlerde kartlı doğrulamaya ve turnikeye ihtiyaç duyulan her noktada yardımcınız olmaktan memnuniyet duyarız.</p>
+              <p>Yemekhane aboneliklerinde, bina girişlerinde ve benzeri yerlerde kartlı doğrulamaya ve turnikeye ihtiyaç duyulan her noktada yardımcınız olmaktan memnuniyet duyaruz.</p>
             </div>
           </article>
 
@@ -919,7 +939,11 @@ FILE: /index.html
       const video = document.getElementById("introVideo");
       const skip  = document.getElementById("skipIntro");
 
+      let shown = false;
+
       function showSite(){
+        if(shown) return;
+        shown = true;
         if(intro) intro.style.display = "none";
         if(site) site.classList.remove("hidden");
         document.body.classList.remove("intro-on");
@@ -928,24 +952,29 @@ FILE: /index.html
       // Video bittiğinde siteyi aç (HER GİRİŞTE OYNAR)
       if(video){
         video.addEventListener("ended", showSite);
+
+        // iOS bazen autoplay’ı geciktirebiliyor: yine de dene
+        try{
+          const p = video.play();
+          if(p && p.catch) p.catch(()=>{});
+        }catch(e){}
       }
 
       // Kullanıcı geçmek isterse
       if(skip){
         skip.addEventListener("click", function(){
-          try{ video.pause(); }catch(e){}
+          try{ if(video) video.pause(); }catch(e){}
           showSite();
         });
       }
 
-      // iOS bazen autoplay’ı geciktirebiliyor: yine de dene
-      try{
-        const p = video.play();
-        if(p && p.catch) p.catch(()=>{});
-      }catch(e){}
-
-      // Güvenlik: video yüklenmezse 3.5 sn sonra site açılsın
-      setTimeout(showSite, 3500);
+      // Güvenlik: video hiç yüklenmez / oynatılmazsa 3.5 sn sonra site açılsın
+      const fallback = setTimeout(showSite, 3500);
+      if(video){
+        video.addEventListener("playing", ()=> clearTimeout(fallback));
+        video.addEventListener("loadeddata", ()=> clearTimeout(fallback));
+        video.addEventListener("canplay", ()=> clearTimeout(fallback));
+      }
     })();
   </script>
 
