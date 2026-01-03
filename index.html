@@ -45,41 +45,42 @@ FILE: /index.html
     /* =========================
        INTRO VIDEO (SPLASH)
     ========================= */
-/* =========================
-   INTRO VIDEO (MOBİL UYUMLU)
-========================= */
-#intro{
-  position: fixed;
-  inset: 0;
-  background:#000;
-  z-index: 100000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    /* =========================
+       INTRO VIDEO (MOBİL UYUMLU)
+    ========================= */
+    #intro{
+      position: fixed;
+      inset: 0;
+      background:#000;
+      z-index: 100000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
 
-  /* 🔥 MOBİL TARAYICI YÜKSEKLİK FIX */
-  height: 100vh;
-  height: 100dvh;
-}
+      /* 🔥 MOBİL TARAYICI YÜKSEKLİK FIX */
+      height: 100vh;
+      height: 100dvh;
+    }
 
-#intro video{
-  width: 100%;
-  height: 100%;
-  display:block;
+    #intro video{
+      width: 100%;
+      height: 100%;
+      display:block;
 
-  /* ❌ yanlardan kesme
-     ✅ videoyu komple göster */
-  object-fit: contain;
-  object-position: center;
+      /* ❌ yanlardan kesme
+         ✅ videoyu komple göster */
+      object-fit: contain;
+      object-position: center;
 
-  background:#000;
-}
+      background:#000;
+    }
 
-/* güvenlik için */
-#intro, #intro *{
-  max-width:100%;
-  max-height:100%;
-}
+    /* güvenlik için */
+    #intro, #intro *{
+      max-width:100%;
+      max-height:100%;
+    }
+
     #intro .skip{
       position:absolute;
       right: 16px;
@@ -924,39 +925,29 @@ FILE: /index.html
         document.body.classList.remove("intro-on");
       }
 
-      // Aynı cihazda 1 kez oynat (PRO)
-      const played = localStorage.getItem("te_intro_played") === "1";
-      if(played){
-        showSite();
-        return;
+      // Video bittiğinde siteyi aç (HER GİRİŞTE OYNAR)
+      if(video){
+        video.addEventListener("ended", showSite);
       }
 
-      // Video bittiğinde siteyi aç
-      video.addEventListener("ended", function(){
-        localStorage.setItem("te_intro_played","1");
-        showSite();
-      });
-
       // Kullanıcı geçmek isterse
-      skip.addEventListener("click", function(){
-        try{ video.pause(); }catch(e){}
-        localStorage.setItem("te_intro_played","1");
-        showSite();
-      });
+      if(skip){
+        skip.addEventListener("click", function(){
+          try{ video.pause(); }catch(e){}
+          showSite();
+        });
+      }
 
       // iOS bazen autoplay’ı geciktirebiliyor: yine de dene
       try{
         const p = video.play();
-        if(p && p.catch) p.catch(()=>{ /* sessiz geç */ });
+        if(p && p.catch) p.catch(()=>{});
       }catch(e){}
 
       // Güvenlik: video yüklenmezse 3.5 sn sonra site açılsın
-      const fallback = setTimeout(showSite, 3500);
-      video.addEventListener("playing", ()=> clearTimeout(fallback));
-      video.addEventListener("loadeddata", ()=> clearTimeout(fallback));
+      setTimeout(showSite, 3500);
     })();
   </script>
 
 </body>
 </html>
-
