@@ -45,21 +45,41 @@ FILE: /index.html
     /* =========================
        INTRO VIDEO (SPLASH)
     ========================= */
-    #intro{
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 100000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    #intro video{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display:block;
-    }
+/* =========================
+   INTRO VIDEO (MOBİL UYUMLU)
+========================= */
+#intro{
+  position: fixed;
+  inset: 0;
+  background:#000;
+  z-index: 100000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  /* 🔥 MOBİL TARAYICI YÜKSEKLİK FIX */
+  height: 100vh;
+  height: 100dvh;
+}
+
+#intro video{
+  width: 100%;
+  height: 100%;
+  display:block;
+
+  /* ❌ yanlardan kesme
+     ✅ videoyu komple göster */
+  object-fit: contain;
+  object-position: center;
+
+  background:#000;
+}
+
+/* güvenlik için */
+#intro, #intro *{
+  max-width:100%;
+  max-height:100%;
+}
     #intro .skip{
       position:absolute;
       right: 16px;
@@ -939,3 +959,4 @@ FILE: /index.html
 
 </body>
 </html>
+
