@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Tamamlanan İşler | Temel Elektrik</title>
+  <meta name="description" content="Temel Elektrik Tamamlanan İşler: Anahtar teslim projelerimiz ve tamamladığımız elektrik işleri." />
+
+  <style>
+    :root{
+      --brand:#ffcc00; --dark:#161616; --dark2:#232323; --bg:#f4f4f4;
+      --card:#ffffff; --muted:#6b6b6b; --wa:#25D366;
+      --shadow: 0 12px 28px rgba(0,0,0,.10); --radius:16px;
+      --ring: 0 0 0 4px rgba(255,204,0,.22);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:#222;
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    /* =========================
+       ÜST MENÜ
+    ========================= */
+    .utility-bar{
+      background:#0f0f0f;
+      color:#fff;
+      padding: 10px 14px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      font-weight:900;
+      font-size:14px;
+      line-height:1;
+    }
+    .utility-bar .pill{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--brand);
+      padding: 10px 14px;
+      min-height: 40px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      white-space:nowrap;
+      line-height:1;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .utility-bar .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
+    .utility-bar .pill.active{
+      background:rgba(255,204,0,.20);
+      border-color:rgba(255,204,0,.60);
+    }
+    .pill:focus{
+      outline:none;
+      box-shadow: var(--ring);
+    }
+
+    /* HEADER */
+    header{
+      background:linear-gradient(180deg,var(--brand),#ffd84d);
+      padding:24px 16px;
+      text-align:center;
+    }
+    header h1{ margin:0; }
+    .badge-30{
+      margin-top:10px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      background:#111;
+      color:#fff;
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:900;
+      line-height:1;
+    }
+    .badge-30 span{
+      background:var(--brand);
+      color:#111;
+      padding:2px 8px;
+      border-radius:999px;
+      line-height:1;
+    }
+
+    /* ANA ALAN */
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:24px 16px;
+    }
+    .panel{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    /* LOGO */
+    .about-logo{
+      display:flex;
+      justify-content:center;
+      margin-bottom:14px;
+    }
+    .about-logo img{
+      max-width:180px;
+      width:100%;
+      height:auto;
+      filter:drop-shadow(0 8px 18px rgba(0,0,0,.18));
+    }
+
+    h2{ margin-top:0; }
+
+    .section-sub{
+      font-weight:700;
+      line-height:1.6;
+      color:#333;
+    }
+
+    /* =========================
+       ✅ TAMAMLANAN İŞLER GALERİSİ (2 KOLON + EŞİT YÜKSEKLİK)
+    ========================= */
+    .project-section{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+    .project-section h3{
+      margin:0 0 8px 0;
+      font-size:20px;
+    }
+    .project-section .hint{
+      margin:0 0 16px 0;
+      color:var(--muted);
+      font-weight:700;
+      line-height:1.55;
+    }
+
+    .project-gallery{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+    @media(max-width:700px){
+      .project-gallery{ grid-template-columns:1fr; }
+    }
+
+    .project-photo{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.07);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 26px rgba(0,0,0,.10);
+    }
+    .project-link{
+      display:block;
+      cursor:zoom-in;
+      outline:none;
+    }
+    .project-link:focus{
+      box-shadow: var(--ring);
+      border-radius:18px;
+    }
+    .project-photo img{
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      display:block;
+      background:#111;
+    }
+    @media(max-width:700px){
+      .project-photo img{ height:260px; }
+    }
+    .project-photo figcaption{
+      padding:10px 12px;
+      font-weight:900;
+      color:#222;
+      background:linear-gradient(180deg,#ffffff, #fafafa);
+      border-top:1px solid rgba(0,0,0,.06);
+      text-align:center;
+    }
+
+    /* BUTONLAR */
+    .cta{
+      margin-top:20px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:900;
+      box-shadow:0 8px 18px rgba(0,0,0,.18);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      line-height:1;
+      min-height:48px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+    }
+    .btn.primary{ background:var(--brand); color:#111; border-color: rgba(0,0,0,.08); }
+    .btn.wa{ background:var(--wa); color:#fff; border-color: rgba(255,255,255,.12); }
+    .btn.dark{ background:var(--dark2); color:var(--brand); border-color: rgba(255,255,255,.08); }
+
+    footer{
+      margin-top:30px;
+      background:#0f0f0f;
+      color:#aaa;
+      text-align:center;
+      padding:12px;
+    }
+
+    /* =========================
+       ✅ LIGHTBOX (OK TUŞU + SWIPE + ESC)
+    ========================= */
+    .lb{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.88);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding:18px;
+    }
+    .lb.open{ display:flex; }
+
+    .lb-inner{
+      width:min(1100px, 100%);
+      height:min(78vh, 820px);
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lb-img{
+      max-width:100%;
+      max-height:100%;
+      border-radius:18px;
+      box-shadow:0 18px 50px rgba(0,0,0,.45);
+      user-select:none;
+      -webkit-user-drag:none;
+      cursor:zoom-out;
+      background:#111;
+    }
+    .lb-close{
+      position:absolute;
+      top:-10px;
+      right:-10px;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter: blur(6px);
+    }
+    .lb-close:hover{ background:rgba(255,255,255,.08); }
+
+    .lb-nav{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter: blur(6px);
+      user-select:none;
+    }
+    .lb-prev{ left:-10px; }
+    .lb-next{ right:-10px; }
+    .lb-nav:hover{ background:rgba(255,255,255,.08); }
+
+    .lb-cap{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-54px;
+      color:#fff;
+      text-align:center;
+      font-weight:900;
+      opacity:.92;
+      line-height:1.35;
+      padding:0 10px;
+    }
+
+    @media (max-width:700px){
+      .lb-inner{ height:72vh; }
+      .lb-cap{ bottom:-60px; font-size:14px; }
+      .lb-prev{ left:6px; }
+      .lb-next{ right:6px; }
+      .lb-close{ top:6px; right:6px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="utility-bar">
+    <a class="pill" href="/">🏠 Ana Sayfa</a>
+    <a class="pill" href="/hakkimizda/">ℹ️ Hakkımızda</a>
+    <a class="pill active" href="/tamamlanan-isler/">✅ Tamamlanan İşler</a>
+    <a class="pill" href="/referanslar/">🏢 Referanslarımız</a>
+  </div>
+
+  <header>
+    <h1>Tamamlanan İşler</h1>
+    <div class="badge-30"><span>30+</span> Yıl Tecrübe</div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+
+      <!-- LOGO -->
+      <div class="about-logo">
+        <img src="https://resmim.net/cdn/2025/12/31/wBRwRy.png" alt="Temel Elektrik Logo">
+      </div>
+
+      <h2><strong>Temel Elektrik</strong></h2>
+
+      <p class="section-sub">
+        Aşağıda, <strong>anahtar teslim</strong> olarak üstlendiğimiz ve <strong>tamamladığımız</strong>
+        bazı işlerden örnekler görebilirsin. Her işte hedefimiz: <strong>güvenli tesisat</strong>,
+        <strong>temiz işçilik</strong> ve <strong>kalıcı çözüm</strong>.
+      </p>
+
+      <!-- ✅ GALERİ -->
+      <section class="project-section" aria-label="Tamamlanan işler galerisi">
+        <h3>🏗️ Anahtar teslim tamamlanan işlerimizden örnekler</h3>
+        <p class="hint">
+          Fotoğrafların üzerine tıkla: <strong>büyük görüntü</strong> açılır. (Telefon: sağ/sol kaydır)
+        </p>
+
+        <div class="project-gallery">
+
+          <!-- 1 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(1).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 1">
+              <img loading="lazy" src="/assets/images/sıfırisler(1).jpeg" alt="Tamamlanan iş 1">
+            </a>
+            <figcaption>Tamamlanan İş 1</figcaption>
+          </figure>
+
+          <!-- 2 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(2).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 2">
+              <img loading="lazy" src="/assets/images/sıfırisler(2).jpeg" alt="Tamamlanan iş 2">
+            </a>
+            <figcaption>Tamamlanan İş 2</figcaption>
+          </figure>
+
+          <!-- 3 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(3).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 3">
+              <img loading="lazy" src="/assets/images/sıfırisler(3).jpeg" alt="Tamamlanan iş 3">
+            </a>
+            <figcaption>Tamamlanan İş 3</figcaption>
+          </figure>
+
+          <!-- 4 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(4).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 4">
+              <img loading="lazy" src="/assets/images/sıfırisler(4).jpeg" alt="Tamamlanan iş 4">
+            </a>
+            <figcaption>Tamamlanan İş 4</figcaption>
+          </figure>
+
+          <!-- 5 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(5).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 5">
+              <img loading="lazy" src="/assets/images/sıfırisler(5).jpeg" alt="Tamamlanan iş 5">
+            </a>
+            <figcaption>Tamamlanan İş 5</figcaption>
+          </figure>
+
+          <!-- 6 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(6).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 6">
+              <img loading="lazy" src="/assets/images/sıfırisler(6).jpeg" alt="Tamamlanan iş 6">
+            </a>
+            <figcaption>Tamamlanan İş 6</figcaption>
+          </figure>
+
+          <!-- 7 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(7).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 7">
+              <img loading="lazy" src="/assets/images/sıfırisler(7).jpeg" alt="Tamamlanan iş 7">
+            </a>
+            <figcaption>Tamamlanan İş 7</figcaption>
+          </figure>
+
+          <!-- 8 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(8).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 8">
+              <img loading="lazy" src="/assets/images/sıfırisler(8).jpeg" alt="Tamamlanan iş 8">
+            </a>
+            <figcaption>Tamamlanan İş 8</figcaption>
+          </figure>
+
+          <!-- 9 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(9).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 9">
+              <img loading="lazy" src="/assets/images/sıfırisler(9).jpeg" alt="Tamamlanan iş 9">
+            </a>
+            <figcaption>Tamamlanan İş 9</figcaption>
+          </figure>
+
+          <!-- 10 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(10).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 10">
+              <img loading="lazy" src="/assets/images/sıfırisler(10).jpeg" alt="Tamamlanan iş 10">
+            </a>
+            <figcaption>Tamamlanan İş 10</figcaption>
+          </figure>
+
+          <!-- 11 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(11).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 11">
+              <img loading="lazy" src="/assets/images/sıfırisler(11).jpeg" alt="Tamamlanan iş 11">
+            </a>
+            <figcaption>Tamamlanan İş 11</figcaption>
+          </figure>
+
+          <!-- 12 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(12).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 12">
+              <img loading="lazy" src="/assets/images/sıfırisler(12).jpeg" alt="Tamamlanan iş 12">
+            </a>
+            <figcaption>Tamamlanan İş 12</figcaption>
+          </figure>
+
+          <!-- 13 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(13).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 13">
+              <img loading="lazy" src="/assets/images/sıfırisler(13).jpeg" alt="Tamamlanan iş 13">
+            </a>
+            <figcaption>Tamamlanan İş 13</figcaption>
+          </figure>
+
+          <!-- 14 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(14).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 14">
+              <img loading="lazy" src="/assets/images/sıfırisler(14).jpeg" alt="Tamamlanan iş 14">
+            </a>
+            <figcaption>Tamamlanan İş 14</figcaption>
+          </figure>
+
+          <!-- 15 -->
+          <figure class="project-photo">
+            <a class="project-link" href="/assets/images/sıfırisler(15).jpeg" data-gallery="tamamlanan" data-caption="Tamamlanan İş 15">
+              <img loading="lazy" src="/assets/images/sıfırisler(15).jpeg" alt="Tamamlanan iş 15">
+            </a>
+            <figcaption>Tamamlanan İş 15</figcaption>
+          </figure>
+
+        </div>
+      </section>
+
+      <div class="cta">
+        <a class="btn primary" href="tel:05071532862">📞 0507 153 28 62</a>
+        <a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/905071532862">💬 WhatsApp</a>
+        <a class="btn dark" href="/">🏠 Ana Sayfa</a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Temel Elektrik | temelelektrik.net
+  </footer>
+
+  <!-- ✅ LIGHTBOX HTML -->
+  <div class="lb" id="lightbox" aria-hidden="true">
+    <div class="lb-inner" role="dialog" aria-modal="true" aria-label="Görsel önizleme">
+      <button class="lb-close" id="lbClose" aria-label="Kapat">✕</button>
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Önceki">‹</button>
+
+      <img class="lb-img" id="lbImg" src="" alt="Büyük görsel">
+
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Sonraki">›</button>
+      <div class="lb-cap" id="lbCap"></div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const links = Array.from(document.querySelectorAll('a.project-link[data-gallery="tamamlanan"]'));
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbCap = document.getElementById('lbCap');
+      const btnClose = document.getElementById('lbClose');
+      const btnPrev = document.getElementById('lbPrev');
+      const btnNext = document.getElementById('lbNext');
+
+      let index = 0;
+      let startX = null;
+
+      function openAt(i){
+        index = (i + links.length) % links.length;
+        const a = links[index];
+        const src = a.getAttribute('href');
+        const cap = a.getAttribute('data-caption') || '';
+        lbImg.src = src;
+        lbCap.textContent = cap;
+
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      function prev(){ openAt(index - 1); }
+      function next(){ openAt(index + 1); }
+
+      links.forEach((a, i) => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          openAt(i);
+        });
+        a.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            openAt(i);
+          }
+        });
+      });
+
+      btnClose.addEventListener('click', close);
+      btnPrev.addEventListener('click', prev);
+      btnNext.addEventListener('click', next);
+
+      lb.addEventListener('click', (e) => {
+        if(e.target === lb || e.target === lbImg) close();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if(!lb.classList.contains('open')) return;
+        if(e.key === 'Escape') close();
+        if(e.key === 'ArrowLeft') prev();
+        if(e.key === 'ArrowRight') next();
+      });
+
+      lb.addEventListener('touchstart', (e) => {
+        if(!lb.classList.contains('open')) return;
+        startX = e.touches[0].clientX;
+      }, {passive:true});
+
+      lb.addEventListener('touchend', (e) => {
+        if(!lb.classList.contains('open') || startX === null) return;
+        const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+        const dx = endX - startX;
+        startX = null;
+
+        if(Math.abs(dx) > 50){
+          if(dx > 0) prev();
+          else next();
+        }
+      }, {passive:true});
+
+    })();
+  </script>
+
+</body>
+</html>
