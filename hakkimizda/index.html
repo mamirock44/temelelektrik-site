@@ -196,172 +196,12 @@
     .btn.wa{ background:var(--wa); color:#fff; border-color: rgba(255,255,255,.12); }
     .btn.dark{ background:var(--dark2); color:var(--brand); border-color: rgba(255,255,255,.08); }
 
-    /* =========================
-       ✅ PROJE GALERİSİ (2 KOLON + EŞİT YÜKSEKLİK)
-    ========================= */
-    .project-section{
-      margin-top:26px;
-      padding-top:18px;
-      border-top:1px solid rgba(0,0,0,.08);
-    }
-    .project-section h3{
-      margin:0 0 8px 0;
-      font-size:20px;
-    }
-    .project-section .hint{
-      margin:0 0 16px 0;
-      color:var(--muted);
-      font-weight:700;
-      line-height:1.55;
-    }
-
-    .project-gallery{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:16px;
-    }
-    @media(max-width:700px){
-      .project-gallery{ grid-template-columns:1fr; }
-    }
-
-    .project-photo{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.07);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 12px 26px rgba(0,0,0,.10);
-    }
-    .project-link{
-      display:block;
-      cursor:zoom-in;
-      outline:none;
-    }
-    .project-link:focus{
-      box-shadow: var(--ring);
-      border-radius:18px;
-    }
-    /* EŞİT YÜKSEKLİK: sabit yükseklik + cover */
-    .project-photo img{
-      width:100%;
-      height:320px;          /* burada istersen 280/360 yap */
-      object-fit:cover;
-      display:block;
-      background:#111;
-    }
-    @media(max-width:700px){
-      .project-photo img{ height:260px; }
-    }
-
-    .project-photo figcaption{
-      padding:10px 12px;
-      font-weight:900;
-      color:#222;
-      background:linear-gradient(180deg,#ffffff, #fafafa);
-      border-top:1px solid rgba(0,0,0,.06);
-      text-align:center;
-    }
-
     footer{
       margin-top:30px;
       background:#0f0f0f;
       color:#aaa;
       text-align:center;
       padding:12px;
-    }
-
-    /* =========================
-       ✅ LIGHTBOX (OK TUŞU + SWIPE + ESC)
-    ========================= */
-    .lb{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.88);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-      padding:18px;
-    }
-    .lb.open{ display:flex; }
-
-    .lb-inner{
-      width:min(1100px, 100%);
-      height:min(78vh, 820px);
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .lb-img{
-      max-width:100%;
-      max-height:100%;
-      border-radius:18px;
-      box-shadow:0 18px 50px rgba(0,0,0,.45);
-      user-select:none;
-      -webkit-user-drag:none;
-      cursor:zoom-out;
-      background:#111;
-    }
-    .lb-close{
-      position:absolute;
-      top:-10px;
-      right:-10px;
-      width:44px;
-      height:44px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.20);
-      background:rgba(0,0,0,.35);
-      color:#fff;
-      font-weight:900;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      backdrop-filter: blur(6px);
-    }
-    .lb-close:hover{ background:rgba(255,255,255,.08); }
-
-    .lb-nav{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:46px;
-      height:46px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.20);
-      background:rgba(0,0,0,.35);
-      color:#fff;
-      font-weight:900;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      backdrop-filter: blur(6px);
-      user-select:none;
-    }
-    .lb-prev{ left:-10px; }
-    .lb-next{ right:-10px; }
-    .lb-nav:hover{ background:rgba(255,255,255,.08); }
-
-    .lb-cap{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:-54px;
-      color:#fff;
-      text-align:center;
-      font-weight:900;
-      opacity:.92;
-      line-height:1.35;
-      padding:0 10px;
-    }
-
-    @media (max-width:700px){
-      .lb-inner{ height:72vh; }
-      .lb-cap{ bottom:-60px; font-size:14px; }
-      .lb-prev{ left:6px; }
-      .lb-next{ right:6px; }
-      .lb-close{ top:6px; right:6px; }
     }
   </style>
 </head>
@@ -371,6 +211,7 @@
   <div class="utility-bar">
     <a class="pill" href="/">🏠 Ana Sayfa</a>
     <a class="pill active" href="/hakkimizda/">ℹ️ Hakkımızda</a>
+    <a class="pill" href="/tamamlanan-isler/">✅ Tamamlanan İşler</a>
     <a class="pill" href="/referanslar/">🏢 Referanslarımız</a>
   </div>
 
@@ -402,127 +243,38 @@
         <strong>7/24 ulaşılabilir</strong> ve <strong>hızlı müdahale</strong> anlayışıyla çalışırız.
       </p>
 
-
-
-      
+      <!-- KPI -->
+      <div class="kpi" aria-label="Temel Elektrik öne çıkanlar">
+        <div class="box">30+ Yıl Tecrübe<small>Uzun yıllara dayanan sahada deneyim</small></div>
+        <div class="box">7/24 Destek<small>Acil arızalarda hızlı dönüş</small></div>
+        <div class="box">Temiz İşçilik<small>Düzenli çalışma, güvenli teslim</small></div>
       </div>
 
-      <!-- ✅ SIFIR İŞLER GALERİSİ (2 KOLON + EŞİT YÜKSEKLİK) -->
-      <section class="project-section" aria-label="Anahtar teslim projelerimiz">
-        <h3>🏗️ Sıfırdan teslim alıp anahtar teslim yaptığımız bazı projelerimiz</h3>
-        <p class="hint">
-
-        </p>
-
-        <div class="project-gallery">
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(1).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 1">
-              <img loading="lazy" src="../assets/images/sıfırisler(1).jpeg" alt="Anahtar teslim proje 1">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(2).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 2">
-              <img loading="lazy" src="../assets/images/sıfırisler(2).jpeg" alt="Anahtar teslim proje 2">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(3).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 3">
-              <img loading="lazy" src="../assets/images/sıfırisler(3).jpeg" alt="Anahtar teslim proje 3">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(4).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 4">
-              <img loading="lazy" src="../assets/images/sıfırisler(4).jpeg" alt="Anahtar teslim proje 4">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(5).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 5">
-              <img loading="lazy" src="../assets/images/sıfırisler(5).jpeg" alt="Anahtar teslim proje 5">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(6).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 6">
-              <img loading="lazy" src="../assets/images/sıfırisler(6).jpeg" alt="Anahtar teslim proje 6">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(7).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 7">
-              <img loading="lazy" src="../assets/images/sıfırisler(7).jpeg" alt="Anahtar teslim proje 7">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(8).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 8">
-              <img loading="lazy" src="../assets/images/sıfırisler(8).jpeg" alt="Anahtar teslim proje 8">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(9).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 9">
-              <img loading="lazy" src="../assets/images/sıfırisler(9).jpeg" alt="Anahtar teslim proje 9">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(10).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 10">
-              <img loading="lazy" src="../assets/images/sıfırisler(10).jpeg" alt="Anahtar teslim proje 10">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(11).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 11">
-              <img loading="lazy" src="../assets/images/sıfırisler(11).jpeg" alt="Anahtar teslim proje 11">
-            </a>
-            
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(12).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 12">
-              <img loading="lazy" src="../assets/images/sıfırisler(12).jpeg" alt="Anahtar teslim proje 12">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(13).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 13">
-              <img loading="lazy" src="../assets/images/sıfırisler(13).jpeg" alt="Anahtar teslim proje 13">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(14).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 14">
-              <img loading="lazy" src="../assets/images/sıfırisler(14).jpeg" alt="Anahtar teslim proje 14">
-            </a>
-
-          </figure>
-
-          <figure class="project-photo">
-            <a class="project-link" href="../assets/images/sıfırisler(15).jpeg" data-gallery="sifir" data-caption="Proje Fotoğrafı 15">
-              <img loading="lazy" src="../assets/images/sıfırisler(15).jpeg" alt="Anahtar teslim proje 15">
-            </a>
-
-          </figure>
-
+      <!-- LİSTELER -->
+      <div class="two-col">
+        <div class="listbox">
+          <h3 style="margin:0 0 10px 0;">✅ Neler Yapıyoruz?</h3>
+          <ul>
+            <li>Elektrik Arıza Tespiti ve Onarımı</li>
+            <li>Elektrik Tesisatı (Ev / Ofis / İşyeri)</li>
+            <li>Pano Montajı &amp; Pano Revizyon</li>
+            <li>Aydınlatma &amp; LED Dizayn</li>
+            <li>Uydu / Anten Kurulum</li>
+            <li>İnternet &amp; Kablo Altyapısı</li>
+          </ul>
         </div>
-      </section>
+
+        <div class="listbox">
+          <h3 style="margin:0 0 10px 0;">⭐ Neden Temel Elektrik?</h3>
+          <ul>
+            <li>Güvenli ve kalıcı çözüm odaklı çalışma</li>
+            <li>Hızlı servis &amp; şeffaf bilgilendirme</li>
+            <li>İş bitiminde temiz ve düzenli teslim</li>
+            <li>Kaliteli malzeme ve düzgün bağlantı</li>
+            <li>Uygun fiyat – net iletişim</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="cta">
         <a class="btn primary" href="tel:05071532862">📞 0507 153 28 62</a>
@@ -537,106 +289,5 @@
     © 2025 Temel Elektrik | temelelektrik.net
   </footer>
 
-  <!-- ✅ LIGHTBOX HTML -->
-  <div class="lb" id="lightbox" aria-hidden="true">
-    <div class="lb-inner" role="dialog" aria-modal="true" aria-label="Görsel önizleme">
-      <button class="lb-close" id="lbClose" aria-label="Kapat">✕</button>
-      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Önceki">‹</button>
-
-      <img class="lb-img" id="lbImg" src="" alt="Büyük görsel">
-
-      <button class="lb-nav lb-next" id="lbNext" aria-label="Sonraki">›</button>
-      <div class="lb-cap" id="lbCap"></div>
-    </div>
-  </div>
-
-  <script>
-    (function(){
-      const links = Array.from(document.querySelectorAll('a.project-link[data-gallery="sifir"]'));
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lbImg');
-      const lbCap = document.getElementById('lbCap');
-      const btnClose = document.getElementById('lbClose');
-      const btnPrev = document.getElementById('lbPrev');
-      const btnNext = document.getElementById('lbNext');
-
-      let index = 0;
-      let startX = null;
-
-      function openAt(i){
-        index = (i + links.length) % links.length;
-        const a = links[index];
-        const src = a.getAttribute('href');
-        const cap = a.getAttribute('data-caption') || '';
-        lbImg.src = src;
-        lbCap.textContent = cap;
-
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function close(){
-        lb.classList.remove('open');
-        lb.setAttribute('aria-hidden','true');
-        document.body.style.overflow = '';
-        lbImg.src = '';
-      }
-
-      function prev(){ openAt(index - 1); }
-      function next(){ openAt(index + 1); }
-
-      links.forEach((a, i) => {
-        a.addEventListener('click', (e) => {
-          e.preventDefault();
-          openAt(i);
-        });
-        a.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' '){
-            e.preventDefault();
-            openAt(i);
-          }
-        });
-      });
-
-      btnClose.addEventListener('click', close);
-      btnPrev.addEventListener('click', prev);
-      btnNext.addEventListener('click', next);
-
-      lb.addEventListener('click', (e) => {
-        if(e.target === lb || e.target === lbImg) close();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if(!lb.classList.contains('open')) return;
-        if(e.key === 'Escape') close();
-        if(e.key === 'ArrowLeft') prev();
-        if(e.key === 'ArrowRight') next();
-      });
-
-      lb.addEventListener('touchstart', (e) => {
-        if(!lb.classList.contains('open')) return;
-        startX = e.touches[0].clientX;
-      }, {passive:true});
-
-      lb.addEventListener('touchend', (e) => {
-        if(!lb.classList.contains('open') || startX === null) return;
-        const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
-        const dx = endX - startX;
-        startX = null;
-
-        if(Math.abs(dx) > 50){
-          if(dx > 0) prev();
-          else next();
-        }
-      }, {passive:true});
-
-    })();
-  </script>
-
 </body>
 </html>
-
-
-
-
