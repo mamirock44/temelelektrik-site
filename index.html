@@ -66,8 +66,8 @@ FILE: /index.html
       align-items:center;
       gap:8px;
     }
-    .utility-bar .pill:hover{ background: rgba(255,255,255,.10); }
-    .utility-bar .pill.active{
+    .-bar .pill:hover{ background: rgba(255,255,255,.10); }
+    .-bar .pill.active{
       background: rgba(255,204,0,.18);
       border-color: rgba(255,204,0,.55);
     }
@@ -678,11 +678,13 @@ FILE: /index.html
 <body>
 
   <!-- ✅ Üst bar -->
-  <div class="utility-bar">
-    <a class="pill active" href="/">🏠 Ana Sayfa</a>
-    <a class="pill" href="/hakkimizda/">ℹ️ Hakkımızda</a>
-    <a class="pill" href="/referanslar/">🏢 Referanslarımız</a>
-  </div>
+<div class="utility-bar">
+  <a class="pill" href="/">🏠 Ana Sayfa</a>
+  <a class="pill" href="/hakkimizda/">ℹ️ Hakkımızda</a>
+  <a class="pill" href="/tamamlanan-isler/">✅ Tamamlanan İşler</a>
+  <a class="pill active" href="/referanslar/">🏢 Referanslarımız</a>
+</div>
+
 
   <header>
     <div class="brand-row">
@@ -1010,3 +1012,4 @@ FILE: /index.html
 
 </body>
 </html>
+
